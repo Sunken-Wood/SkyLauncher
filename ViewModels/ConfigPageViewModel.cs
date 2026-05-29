@@ -15,6 +15,32 @@ public class ConfigPageViewModel : INotifyPropertyChanged
     public static ConfigPageViewModel? _instance;
     public static ConfigPageViewModel Instance => _instance ??= new ConfigPageViewModel();
 
+    private bool _isMansualCollocation = true;
+    public bool IsMansualCollocation
+    {
+        get => _isMansualCollocation;
+        set { 
+            _isMansualCollocation = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _isAutoCollocation;
+    public bool IsAutoCollocation
+    {
+        get => _isAutoCollocation;
+        set
+        {
+            if(value)
+            {
+                MainViewModel.Instance.MaxMemoryMB = (int)(MemoryUtils.GetWindowsMetrics().Free * 0.8);
+            }
+            _isAutoCollocation = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MaxMemory));
+        }
+    }
+
     public ConfigPageViewModel()
     {
         AddJavaCommand = new RelayCommand(ExecuteAddJava);
@@ -24,7 +50,12 @@ public class ConfigPageViewModel : INotifyPropertyChanged
     public double MaxMemory
     {
         get => MainViewModel.Instance.MaxMemoryMB;
-        set { MainViewModel.Instance.MaxMemoryMB = (int)value; OnPropertyChanged(); OnPropertyChanged(nameof(MinMemory)); OnPropertyChanged(nameof(MemoryDisplayText)); }
+        set { 
+            MainViewModel.Instance.MaxMemoryMB = (int)value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(MinMemory));
+            OnPropertyChanged(nameof(MemoryDisplayText));
+        }
     }
 
     public double FreeMemory
