@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="SkyLauncher.Views.VersionManagementPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:local="clr-namespace:SkyLauncher.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 顶部操作栏 -->
+        <Border Grid.Row="0" Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal">
+                
+                <Button  
+                        Command="{Binding RefreshCommand}" 
+                        Width="130" Margin="0,0,10,0"
+                        ToolTip="扫描 .minecraft/versions 文件夹">
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="CubeFocus" Foreground="{DynamicResource PrimaryNormalBrush}" Width="16" Height="16"/>
+                        <TextBlock Text="扫描默认目录" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+
+
+                <Button 
+                        Command="{Binding ImportVersionCommand}" 
+                        Width="110" Margin="0,0,10,0"
+                        ToolTip="手动选择版本 JSON 文件">
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="FileArrowUp" Foreground="{DynamicResource PrimaryNormalBrush}" Width="16" Height="16"/>
+                        <TextBlock Text="导入json" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button 
+                        Command="{Binding ImportFolderCommand}" 
+                        Width="110"
+                        ToolTip="手动选择版本文件夹">
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="FolderOpen" Foreground="{DynamicResource PrimaryNormalBrush}" Width="16" Height="16"/>
+                        <TextBlock Text="导入文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <TextBlock Text="{Binding VersionList.Count, StringFormat='  已加载 {0} 个版本'}" 
+                           VerticalAlignment="Center" 
+                           Foreground="{DynamicResource SecondaryTextBrush}"
+                           Margin="20,0,0,0"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 版本列表 -->
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding InstanceList}" 
+                  SelectedItem="{Binding SelectedInstance}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="120" Header="版本" DisplayMemberBinding="{Binding VersionId}"/>
+                    <GridViewColumn Width="350" Header="游戏目录" DisplayMemberBinding="{Binding GameDirectory}"/>
+                    <GridViewColumn Width="120" Header="操作">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="删除实例"
+        ToolTip="删除此实例"
+                    Click="DeleteInstance_Click"
+                    Tag="{Binding}"
+        Style="{StaticResource ButtonDashedDanger}"
+        x:Name="DeleteInstanceButton"
+        />
+                            </DataTemplate>
+                            
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- 底部：选中实例详情 -->
+        <Border Grid.Row="2" Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="0,10,0,0">
+            <DockPanel>
+            <TextBlock Text="{Binding SelectedInstanceInfo}" 
+                       TextWrapping="Wrap"
+                       Foreground="{DynamicResource SecondaryTextBrush}"/>
+            
+            </DockPanel>
+        </Border>
+    </Grid>
+</UserControl>

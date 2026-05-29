@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="SkyLauncher.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SkyLauncher.Views"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    <DockPanel Margin="10">
+        <hc:StepBar IsMouseSelectable="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40" Visibility="Hidden" x:Name="StepBar">
+            <hc:StepBarItem Content="初始化"/>
+            <hc:StepBarItem Content="生成指令"/>
+            <hc:StepBarItem Content="完成"/>
+        </hc:StepBar>
+        <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20,20,20,20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- 玩家名输入 -->
+            <hc:TextBox 
+        hc:InfoElement.ShowClearButton="True"
+        Text="{Binding PlayerName, UpdateSourceTrigger=PropertyChanged}" 
+        hc:InfoElement.Title="玩家ID" 
+        Width="200"
+                Height="60"
+        Margin="10,0,0,20"
+        HorizontalAlignment="Center" Grid.Row="0"/>
+
+            <!-- Java 信息显示 -->
+            <StackPanel Grid.Row="1" Margin="0,0,0,20" HorizontalAlignment="Center">
+                
+                <DockPanel VerticalAlignment="Center">
+                        <iconPacks:PackIconRemixIcon Kind="JavaLine" Width="12" Height="12" Foreground="{DynamicResource SecondaryTextBrush}" />
+                        <TextBlock Text="{Binding JavaDisplayInfo}"  Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center"/>
+                    </DockPanel>
+                
+                
+                    <DockPanel VerticalAlignment="Center">
+                        <iconPacks:PackIconMingCuteIcons Kind="VersionLine" Width="12" Height="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBlock Text="{Binding SelectedVersionInfo}" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" MaxWidth="150"/>
+                    </DockPanel>
+                
+            </StackPanel>
+            <ToggleButton 
+        Style="{StaticResource ToggleButtonLoading}" 
+        IsChecked="{Binding IsUploading, Mode=TwoWay}" 
+        Content="启动"  
+        FontSize="16" 
+        Height="37"
+        Width="120" 
+        Command="{Binding LaunchCommand}"
+        x:Name="LauchGame"
+            Grid.Row="2"/>
+        </Grid>
+    </DockPanel>
+</UserControl>

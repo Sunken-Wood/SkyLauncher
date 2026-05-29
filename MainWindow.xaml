@@ -1,0 +1,55 @@
+﻿<Window x:Class="SkyLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkyLaucher"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="SkyLauncher" Height="540" Width="920">
+    <Grid>
+        <Grid x:Name="mainGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}">
+                <TextBlock Text="NAVIGATION"  Margin="15,20,10,10"  Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12" FontWeight="Bold"/>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToMainPage">
+                    <DockPanel>
+                        <iconPacks:PackIconLucide Kind="House" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="主菜单" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToConfigPage">
+                    <DockPanel>
+                        <iconPacks:PackIconLucide Kind="Wrench" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="可配置项" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToVersionManagementPage">
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="Sliders" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="版本管理" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToToolboxPage">
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="ToolboxBold" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="小工具" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToAboutPage">
+                    <DockPanel>
+                        <iconPacks:PackIconLucide Kind="Info" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="关于" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+            </StackPanel>
+            <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left" />
+        </Grid>
+        
+    </Grid>
+</Window>

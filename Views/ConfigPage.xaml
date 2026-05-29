@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="SkyLauncher.Views.ConfigPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SkyLauncher.Views"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      >
+
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="通用配置项" FontSize="15" Grid.Row="0" Margin="10" Padding="10" Style="{StaticResource GroupBoxTab}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Grid.Row="0">
+                            <StackPanel 
+                                HorizontalAlignment="Left">
+                                <TextBlock Text="配置内存使用" Margin="20,10,20,10" />
+                                <DockPanel
+                                    HorizontalAlignment="Left"
+                                    Margin="10">
+                                    <RadioButton
+                                        x:Name="manual_allocation"
+                                        GroupName="mem_allocation_mode"
+                                        Content="手动分配"
+                                        IsChecked="True"/>
+                                    <hc:UniformSpacingPanel Orientation="Vertical" Spacing="32">
+                                        <Slider Width="400" 
+                                                hc:TipElement.Visibility="Visible" 
+                                                hc:TipElement.Placement="Top" 
+                                                IsSnapToTickEnabled="True" 
+                                                Minimum="1024"
+                                                Maximum="{Binding FreeMemory}"
+                                                Value="{Binding MaxMemory, UpdateSourceTrigger=PropertyChanged}" 
+                                                TickFrequency="128" 
+                                                TickPlacement="BottomRight" 
+                                                HorizontalAlignment="Left" 
+                                                Margin="20,0,0,15"/>
+                                    </hc:UniformSpacingPanel>
+                                    <TextBlock Text="{Binding MaxMemory, StringFormat='当前设置: {0} MB'}" Margin="20,0,20,10" Foreground="{DynamicResource SecondaryTextBrush}"/>
+                                </DockPanel>
+                                <DockPanel
+                                    HorizontalAlignment="Left"
+                                    Margin="10">
+                                    <RadioButton
+                                        GroupName="mem_allocation_mode"
+                                        Content="自动分配"/>
+                                </DockPanel>
+                            </StackPanel>
+
+                        </Border>
+                        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Grid.Row="1" Margin="0,15,0,0">
+                            <StackPanel>
+                                
+                                    <TextBlock Text="选择Java" Margin="20,10,20,0"/>
+
+                                <ToolBar Margin="15,10,15,15" Band="1">
+                                    <TextBlock Text="选择Java版本" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <ComboBox Margin="10,0,0,0" 
+          ItemsSource="{Binding JavaList}" 
+          SelectedItem="{Binding SelectedJava}" 
+          DisplayMemberPath="DisplayText" 
+          Width="230" />
+
+                                    <!-- 按钮改为 Command -->
+                                    <hc:ButtonGroup>
+                                    <Button Content="添加" Margin="15,0,0,0"  FontSize="15"
+        Command="{Binding AddJavaCommand}" Style="{StaticResource ButtonPrimary}"/>
+
+                                    <Button 
+              Content="自动寻找Java" Margin="15,0,0,0" FontSize="15" 
+              Command="{Binding AutoDetectJavaCommand}"/>
+                                    </hc:ButtonGroup>
+                                </ToolBar>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Grid.Row="2" Margin="0,15,0,0">
+                            <Grid>
+                                <TextBlock Text="打开截图画廊" Margin="20,10,20,10" />
+                                <Button Content="打开" Margin="0,0,20,0" Width="60"  FontSize="15" Click="OpenScreenshotGallery" HorizontalAlignment="Right"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="可加载配置项" FontSize="15" Grid.Row="1" Margin="10" Padding="10" Style="{StaticResource GroupBoxTab}">
+                    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4">
+                        <TextBlock Text="Any" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </GroupBox>
+
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
