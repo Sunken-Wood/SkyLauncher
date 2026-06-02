@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace SkyLauncher.ViewModels;
@@ -38,11 +40,11 @@ public class ScreenshotGalleryViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(HasScreenshots));
             return;
         }
-
+        
         var imageFiles = Directory.GetFiles(_screenshotFolder)
             .Where(IsImageFile)
-            .OrderByDescending(File.GetLastWriteTime)
-            .Take(30); // 非常重要，别全加载
+            .OrderByDescending(File.GetLastWriteTime);
+            //.Take(30); // 非常重要，别全加载
 
         foreach (var file in imageFiles)
         {
@@ -73,7 +75,7 @@ public class ScreenshotGalleryViewModel : INotifyPropertyChanged
             }
             catch
             {
-
+                HandyControl.Controls.MessageBox.Show("无法获取文件","确认",MessageBoxButton.YesNo,MessageBoxImage.Error);
             }
         }
 

@@ -11,13 +11,44 @@
       >
 
     <Grid Margin="10">
-        <StackPanel>
-        <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="FlipClock_Show">
-            <DockPanel>
-                <iconPacks:PackIconLucide Kind="CalendarClock" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
-                <TextBlock Text="桌面时钟" Margin="12,0,0,0" VerticalAlignment="Center"/>
-            </DockPanel>
-        </Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="721*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="FlipClock_Show">
+                <DockPanel>
+                    <iconPacks:PackIconLucide Kind="CalendarClock" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                    <TextBlock Text="桌面时钟" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                </DockPanel>
+
+            </Button>
         </StackPanel>
+
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2" >
+            <TabItem Header="主题色" FontSize="15">
+
+                <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10,0,10,0">
+                    <StackPanel Width="500">
+                        <hc:Divider Padding="0" Content="选择一个主题色"/>
+                        <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_OnSelectedColorChanged" Grid.Column="0"/>
+                    </StackPanel>
+                </Border>
+
+            </TabItem>
+            <TabItem Header="背景图片" FontSize="15">
+                <Border>
+                    <StackPanel Margin="10" Width="500">
+                        <hc:Divider Padding="0" Content="选择背景图片"/>
+                        <hc:ImageSelector Width="100" Height="100" hc:BorderElement.CornerRadius="10" StrokeThickness="2" BorderThickness="2" BorderBrush="{DynamicResource PrimaryBrush}" x:Name="ImageSelector"/>
+                        <Button Content="确认" Margin="0,20,0,0" x:Name="SelectPicBtn" Click="ConfirmSelectPic" FontSize="15" Height="35" Width="60" Style="{StaticResource ButtonPrimary}"/>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

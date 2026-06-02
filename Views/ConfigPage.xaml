@@ -90,8 +90,8 @@
                         </Border>
                         <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Grid.Row="2" Margin="0,15,0,0">
                             <Grid>
-                                <TextBlock Text="打开截图画廊" Margin="20,10,20,10" />
-                                <Button Content="打开" Margin="0,0,20,0" Width="60"  FontSize="15" Click="OpenScreenshotGallery" HorizontalAlignment="Right"/>
+                                <TextBlock Text="打开截图画廊" Margin="20,10,10,10" />
+                                <Button Content="打开" Margin="0,0,20,0" Width="60"  FontSize="15" Click="OpenScreenshotGallery" HorizontalAlignment="Right" Height="30"/>
                             </Grid>
                         </Border>
                     </Grid>
@@ -104,5 +104,6 @@
 
             </Grid>
         </ScrollViewer>
+        <hc:GotoTop Animated="True" AutoHiding="True" AnimationTime="500" Target="{Binding ElementName=ScrollViewerDemo}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
     </Grid>
 </UserControl>

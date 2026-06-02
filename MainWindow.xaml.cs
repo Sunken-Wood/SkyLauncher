@@ -27,6 +27,42 @@ namespace SkyLauncher
 
             // 窗口加载时默认显示主页
             Loaded += (s, e) => GoToMainPage();
+            ToolboxPage tb = new ToolboxPage();
+            ToolboxPage.ThemeColorChanged += OnThemeColorChanged;
+            ToolboxPage.BackgroundImagePathChanged += OnBackgroundImagePathChanged;
+        }
+        private void OnThemeColorChanged(Color newColor)
+        {
+            // 主窗口响应颜色变化
+            mainGrid.Background = new SolidColorBrush(newColor);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            // 取消订阅，防止内存泄漏
+            ToolboxPage.ThemeColorChanged -= OnThemeColorChanged;
+            base.OnClosed(e);
+        }
+        private void BackgroundImagePathChanged(string newPath)
+        {
+            ToolboxPage tb = new ToolboxPage();
+            ImageShow.Source = tb.BackgroundImagePath;
+        }
+
+        private void OnBackgroundImagePathChanged(string newPath)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                try
+                {
+                    ImageShow.Source = new BitmapImage(new Uri(newPath, UriKind.Absolute));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"加载图片失败：{ex.Message}", "错误",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
         }
 
         private Grid ContentGrid => mainGrid.Children.OfType<Grid>().FirstOrDefault()
@@ -102,6 +138,7 @@ namespace SkyLauncher
         {
             ContentArea.Content = new Views.VersionManagementPage();
         }
+
 
     }
 }
