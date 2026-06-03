@@ -29,14 +29,13 @@
         </StackPanel>
         <TabControl Grid.Row="1" Grid.ColumnSpan="2" >
             <TabItem Header="主题色" FontSize="15">
-                <hc:ScrollViewer>
-                    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10,0,10,0">
-                        <StackPanel Width="500">
-                            <hc:Divider Padding="0" Content="选择一个主题色"/>
-                            <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_OnSelectedColorChanged" Grid.Column="0" Confirmed="ColorPicker_ColorConfirmed"/>
-                        </StackPanel>
-                    </Border>
-                </hc:ScrollViewer>
+
+                <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10,0,10,0">
+                    <StackPanel Width="500">
+                        <hc:Divider Padding="0" Content="选择一个主题色"/>
+                        <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_OnSelectedColorChanged" Grid.Column="0" Confirmed="ColorPicker_ColorConfirmed"/>
+                    </StackPanel>
+                </Border>
             </TabItem>
             <TabItem Header="背景图片" FontSize="15">
                 <Border>

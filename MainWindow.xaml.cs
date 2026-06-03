@@ -54,14 +54,13 @@ namespace SkyLauncher
             {
                 try
                 {
-                    // 解析保存的颜色字符串（格式：#AARRGGBB）
+                    // 解析保存的颜色字符串（格式：#RRGGBB）
                     string colorHex = _settings.ThemeColorSetting.TrimStart('#');
-                    byte a = Convert.ToByte(colorHex.Substring(0, 2), 16);
-                    byte r = Convert.ToByte(colorHex.Substring(2, 2), 16);
-                    byte g = Convert.ToByte(colorHex.Substring(4, 2), 16);
-                    byte b = Convert.ToByte(colorHex.Substring(6, 2), 16);
+                    byte r = Convert.ToByte(colorHex.Substring(0, 2), 16);
+                    byte g = Convert.ToByte(colorHex.Substring(2, 2), 16);
+                    byte b = Convert.ToByte(colorHex.Substring(4, 2), 16);
 
-                    Color savedColor = Color.FromArgb(a ,r, g, b);
+                    Color savedColor = Color.FromRgb(r, g, b);
                     mainGrid.Background = new SolidColorBrush(savedColor);
                 }
                 catch
