@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Microsoft.Windows.Themes;
+using SkyLauncher.Core.Models;
+using SkyLauncher.Core.Services;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using SkyLauncher.Core.Models;
-using SkyLauncher.Core.Services;
 
 namespace SkyLauncher.ViewModels;
 
@@ -17,7 +18,7 @@ public class MainViewModel
 
     private LauncherSettings _settings;
     private List<MinecraftInstance> _instances;
-
+    
     private MainViewModel()
     {
         _settings = LauncherSettings.Load();
@@ -26,6 +27,7 @@ public class MainViewModel
         JavaList = new ObservableCollection<JavaRuntime>();
         InstanceList = new ObservableCollection<MinecraftInstance>(_instances);
 
+        
         AutoScanJava();
         RestoreSelectedInstance();
     }
@@ -214,4 +216,5 @@ public class MainViewModel
         }
     }
 
+    
 }
