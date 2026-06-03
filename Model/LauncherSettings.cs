@@ -43,6 +43,14 @@ public class LauncherSettings
 
     public bool ShowSnapshots { get; set; } = true;
 
+
+    //=====Personiziation=====
+
+    public string ThemeColorSetting { get; set; } = "";
+
+    public string PictureBackgroundPath { get; set; } = "";
+
+
     // ===== Load / Save =====
 
     public static LauncherSettings Load()

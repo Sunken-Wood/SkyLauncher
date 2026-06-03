@@ -1,4 +1,10 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using HandyControl.Data;
+using HandyControl.Themes;
+using SkyLauncher.Views;
+using SkyLauncher.Service;
+using SkyLauncher.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +18,51 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SkyLauncher.Views;
+using System.IO;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SkyLauncher.Views
 {
     /// <summary>
     /// ToolboxPage.xaml 的交互逻辑
     /// </summary>
-    public partial class ToolboxPage : UserControl
+    public partial class ToolboxPage : UserControl, INotifyPropertyChanged
     {
+        private LauncherSettings _settings;
+
         public ToolboxPage()
         {
             InitializeComponent();
-
+            _settings = LauncherSettings.Load(); // 先加载设置
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string ThemeColor
+        {
+            get => _settings?.ThemeColorSetting;
+            set
+            {
+                if (_settings != null)
+                {
+                    _settings.ThemeColorSetting = value;
+                    _settings.Save();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public System.Windows.Media.ImageSource BackgroundImagePath { get; set; }
+
+        public static event Action<Color> ThemeColorChanged;
+        public static event Action<String> BackgroundImagePathChanged;
+
         private void FlipClock_Show(object sender, RoutedEventArgs e)
         {
             var mainWindow = Application.Current.MainWindow as MainWindow;
@@ -36,6 +73,50 @@ namespace SkyLauncher.Views
             else
             {
                 HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ColorPicker_OnSelectedColorChanged(object sender, FunctionEventArgs<Color> e)
+        {
+            if (e.Info != null)
+            {
+                Color selectedColor = e.Info;
+                ThemeColor = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
+                ThemeColorChanged?.Invoke(selectedColor);
+            }
+        }
+
+        private void ConfirmSelectPic(object sender, RoutedEventArgs e)
+        {
+            string imagePath = ImageSelector.Uri?.OriginalString;
+
+            if (imagePath == null)
+            {
+                HandyControl.Controls.MessageBox.Show("请选择一张图片！", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
+            {
+                BackgroundImagePathChanged?.Invoke(imagePath);
+                ImageSource imageSource = new BitmapImage(new Uri(imagePath, UriKind.Absolute));
+                BackgroundImagePath = imageSource;
+
+                // 同时保存图片路径到设置
+                if (_settings != null)
+                {
+                    _settings.PictureBackgroundPath = imagePath;
+                    _settings.Save();
+                }
+            }
+        }
+
+        private void ColorPicker_ColorConfirmed(object sender, FunctionEventArgs<Color> e)
+        {
+            if (e.Info != null)
+            {
+                Color selectedColor = e.Info;
+                ThemeColor = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
+                HandyControl.Controls.MessageBox.Show($"已选择颜色: {ThemeColor}", "颜色选择", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

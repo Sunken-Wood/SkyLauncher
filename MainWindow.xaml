@@ -10,12 +10,15 @@
         mc:Ignorable="d"
         Title="SkyLauncher" Height="540" Width="920">
     <Grid>
+        <Image x:Name="ImageShow" Stretch="UniformToFill" Opacity="0.7"/>
         <Grid x:Name="mainGrid">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}">
+            
+            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}" Opacity="0.85">
                 <TextBlock Text="NAVIGATION"  Margin="15,20,10,10"  Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12" FontWeight="Bold"/>
                 <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToMainPage">
                     <DockPanel>
@@ -38,7 +41,7 @@
                 <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToToolboxPage">
                     <DockPanel>
                         <iconPacks:PackIconPhosphorIcons Kind="ToolboxBold" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
-                        <TextBlock Text="小工具" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="杂项" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
                 </Button>
                 <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToAboutPage">
@@ -48,7 +51,8 @@
                     </DockPanel>
                 </Button>
             </StackPanel>
-            <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left" />
+            <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left" Opacity="0.9"/>
+            
         </Grid>
         
     </Grid>
