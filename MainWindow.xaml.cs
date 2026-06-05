@@ -81,7 +81,7 @@ namespace SkyLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"加载保存的背景图片失败：{ex.Message}", "错误",
+                    HandyControl.Controls.MessageBox.Show($"加载保存的背景图片失败：{ex.Message}", "错误",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -114,13 +114,13 @@ namespace SkyLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"加载图片失败：{ex.Message}", "错误",
+                    HandyControl.Controls.MessageBox.Show($"加载图片失败：{ex.Message}", "错误",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
 
-        // 注意：这个属性有问题，应该直接使用 ContentArea
+        //
         private Grid ContentGrid => mainGrid.Children.OfType<Grid>().FirstOrDefault()
                                     ?? (Grid)mainGrid.ColumnDefinitions[1]?.FindName("ContentArea");
 
@@ -131,7 +131,7 @@ namespace SkyLauncher
             _currentPage = page;
         }
 
-        // 更新按钮样式（如果你想实现菜单高亮效果）
+        
         private void UpdateButtonStyle(Button activeButton)
         {
             var stackPanel = mainGrid.Children.OfType<StackPanel>().FirstOrDefault();

@@ -127,7 +127,7 @@ public class VersionManagementViewModel : INotifyPropertyChanged
                 var jsonFiles = Directory.GetFiles(folderPath, "*.json");
                 if (jsonFiles.Length == 0)
                 {
-                    MessageBox.Show("文件夹内没有找到版本 JSON 文件", "导入失败");
+                    HandyControl.Controls.MessageBox.Show("文件夹内没有找到版本 JSON 文件", "导入失败");
                     return;
                 }
                 jsonPath = jsonFiles[0];
@@ -144,7 +144,7 @@ public class VersionManagementViewModel : INotifyPropertyChanged
 
         if (versionName == "launcher_profiles")
         {
-            MessageBox.Show("这是 PCL 配置文件，不是版本文件", "导入失败");
+            HandyControl.Controls.MessageBox.Show("这是 PCL 配置文件，不是版本文件", "导入失败");
             return;
         }
 
