@@ -46,11 +46,18 @@ public class ModpackInstallService
             CheckAllDependencies = true,
             Progress = new Progress<IInstallerProgress>(p =>
             {
-               
-                /*var percent = p.TotalTasks > 0
-                    ? p.FinishedTasks * 80.0 / p.TotalTasks
-                    : 0;
-                ReportProgress(10 + percent);*/
+
+                if (p is InstallerProgress<ModrinthModpackInstaller.ModrinthModpackInstallationStage> stageProgress)
+                {
+                    ReportStatus(GetModrinthStageText(stageProgress.Stage, p));
+                }
+
+
+                if (p is DownloadTask downloadTask && downloadTask.TotalBytes.HasValue)
+                {
+                    var progress = (double)downloadTask.DownloadedBytes / downloadTask.TotalBytes.Value;
+                    ReportProgress(10 + progress * 80.0);
+                }
             })
         };
 
@@ -106,7 +113,9 @@ public class ModpackInstallService
         httpClient: HttpUtils.HttpClient,
         maxRetryCount: 5,  // 重试次数
         concurrentDownloadTasks: 3  // 并发
+
     ),
+
         };
 
         var instance = await Task.Run(() => installer.InstallAsync(ct));
@@ -136,6 +145,7 @@ public class ModpackInstallService
                         if (!File.Exists(parentJsonPath))
                         {
                             ReportStatus($"正在下载原版 {parentVersionId}...");
+                            ReportProgress(50);
                             var (versionManifestItem, _) = await VersionManifestApi.SearchInstallDataAsync(parentVersionId);
 
                             var vanillaInstaller = new VanillaInstanceInstaller
