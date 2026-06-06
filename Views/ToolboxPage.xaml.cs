@@ -48,7 +48,22 @@ namespace SkyLauncher.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private bool isFirstLoad = true;
 
+        /*private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isFirstLoad)
+            {
+                isFirstLoad = false;
+                return;
+            }
+            if (MainTabControl.SelectedIndex == 0)
+            {
+                var currentContent = ThemeTransition.Content;
+                ThemeTransition.Content = null;
+                ThemeTransition.Content = currentContent;
+            }
+        }*/
         public string ThemeColor
         {
             get => _settings?.ThemeColorSetting;

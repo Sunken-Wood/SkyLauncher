@@ -27,35 +27,49 @@
                 </DockPanel>
             </Button>
         </StackPanel>
-        <TabControl Grid.Row="1" Grid.ColumnSpan="2" >
-            <TabItem Header="主题色" FontSize="15">
-                <hc:ScrollViewer>
-                    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10,0,10,0">
-                        <StackPanel Width="500">
-                            <hc:Divider Padding="0" Content="选择一个主题色"/>
-                            <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_OnSelectedColorChanged" Grid.Column="0" Confirmed="ColorPicker_ColorConfirmed"/>
-                        </StackPanel>
-                    </Border>
-                </hc:ScrollViewer>
+        
+            <TabControl Grid.Row="1" Grid.ColumnSpan="2" x:Name="MainTabControl" >
+            <TabItem Visibility="Hidden" Width="0">
+                <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" />
             </TabItem>
-            <TabItem Header="背景图片" FontSize="15">
-                <Border >
-                    <StackPanel Margin="10" Width="500">
-                        <hc:Divider Padding="0" Content="选择背景图片"/>
-                        <hc:ImageSelector Width="100" Height="100" hc:BorderElement.CornerRadius="10" StrokeThickness="2" BorderThickness="2" BorderBrush="{DynamicResource PrimaryBrush}" x:Name="ImageSelector"/>
-                        <Button Content="确认" Margin="0,20,0,0" x:Name="SelectPicBtn" Click="ConfirmSelectPic" FontSize="15" Height="35" Width="60" Style="{DynamicResource ButtonPrimary}"/>
-                    </StackPanel>
-                </Border>
-            </TabItem>
-            <TabItem Header="切换明暗模式" FontSize="15">
-                <Border Margin="15,10,10,10">
-                    <StackPanel HorizontalAlignment="Left">
-                        <RadioButton Content="Light" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToLight"/>
-                        <RadioButton Content="Dark" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToDark"/>
-                        <TextBlock Text="因一些原因无法实现"/>
-                    </StackPanel>
-                </Border>
-            </TabItem>
-        </TabControl>
+            <TabItem Header="主题色" FontSize="15" >
+                    <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" x:Name="ThemeTransition">
+                        <hc:ScrollViewer>
+
+                            <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10,0,10,0">
+                                <StackPanel Width="500">
+                                    <hc:Divider Padding="0" Content="选择一个主题色"/>
+                                    <hc:ColorPicker Name="ColorPicker" SelectedColorChanged="ColorPicker_OnSelectedColorChanged" Grid.Column="0" Confirmed="ColorPicker_ColorConfirmed"/>
+                                </StackPanel>
+                            </Border>
+
+                        </hc:ScrollViewer>
+                    </hc:TransitioningContentControl>
+
+                </TabItem>
+                <TabItem Header="背景图片" FontSize="15">
+                    <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
+                        <Border >
+                            <StackPanel Margin="10" Width="500">
+                                <hc:Divider Padding="0" Content="选择背景图片"/>
+                                <hc:ImageSelector Width="100" Height="100" hc:BorderElement.CornerRadius="10" StrokeThickness="2" BorderThickness="2" BorderBrush="{DynamicResource PrimaryBrush}" x:Name="ImageSelector"/>
+                                <Button Content="确认" Margin="0,20,0,0" x:Name="SelectPicBtn" Click="ConfirmSelectPic" FontSize="15" Height="35" Width="60" Style="{DynamicResource ButtonPrimary}"/>
+                            </StackPanel>
+                        </Border>
+                    </hc:TransitioningContentControl>
+                </TabItem>
+                <TabItem Header="切换明暗模式" FontSize="15">
+                    <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
+                        <Border Margin="15,10,10,10">
+                            <StackPanel HorizontalAlignment="Left">
+                                <RadioButton Content="Light" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToLight"/>
+                                <RadioButton Content="Dark" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToDark"/>
+                                <TextBlock Text="因一些原因无法实现"/>
+                            </StackPanel>
+                        </Border>
+                    </hc:TransitioningContentControl>
+                </TabItem>
+            </TabControl>
+        
     </Grid>
 </UserControl>
