@@ -75,7 +75,7 @@ public class MainPageViewModel : INotifyPropertyChanged
     {
         if (!CanLaunch)
         {
-            MessageBox.Show("请先配置 Java、玩家名和游戏实例", "无法启动");
+            HandyControl.Controls.MessageBox.Show("请先配置 Java、玩家名和游戏实例", "无法启动");
             IsUploading = false;
             return;
         }
@@ -124,7 +124,7 @@ public class MainPageViewModel : INotifyPropertyChanged
         catch (Exception ex)
         {
             IsUploading = false;
-            MessageBox.Show($"启动失败：\n{ex.Message}", "错误");
+            HandyControl.Controls.MessageBox.Show($"启动失败：\n{ex.Message}", "错误");
         }
     }
 

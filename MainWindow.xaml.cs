@@ -54,13 +54,14 @@ namespace SkyLauncher
             {
                 try
                 {
-                    // 解析保存的颜色字符串（格式：#RRGGBB）
+                    // 解析保存的颜色字符串（格式：#AARRGGBB）
                     string colorHex = _settings.ThemeColorSetting.TrimStart('#');
-                    byte r = Convert.ToByte(colorHex.Substring(0, 2), 16);
-                    byte g = Convert.ToByte(colorHex.Substring(2, 2), 16);
-                    byte b = Convert.ToByte(colorHex.Substring(4, 2), 16);
+                    byte a = Convert.ToByte(colorHex.Substring(0, 2), 16);
+                    byte r = Convert.ToByte(colorHex.Substring(2, 2), 16);
+                    byte g = Convert.ToByte(colorHex.Substring(4, 2), 16);
+                    byte b = Convert.ToByte(colorHex.Substring(6, 2), 16);
 
-                    Color savedColor = Color.FromRgb(r, g, b);
+                    Color savedColor = Color.FromArgb(a, r, g, b);
                     mainGrid.Background = new SolidColorBrush(savedColor);
                 }
                 catch
@@ -80,7 +81,7 @@ namespace SkyLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"加载保存的背景图片失败：{ex.Message}", "错误",
+                    HandyControl.Controls.MessageBox.Show($"加载保存的背景图片失败：{ex.Message}", "错误",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -113,13 +114,13 @@ namespace SkyLauncher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"加载图片失败：{ex.Message}", "错误",
+                    HandyControl.Controls.MessageBox.Show($"加载图片失败：{ex.Message}", "错误",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             });
         }
 
-        // 注意：这个属性有问题，应该直接使用 ContentArea
+        //
         private Grid ContentGrid => mainGrid.Children.OfType<Grid>().FirstOrDefault()
                                     ?? (Grid)mainGrid.ColumnDefinitions[1]?.FindName("ContentArea");
 
@@ -130,7 +131,7 @@ namespace SkyLauncher
             _currentPage = page;
         }
 
-        // 更新按钮样式（如果你想实现菜单高亮效果）
+
         private void UpdateButtonStyle(Button activeButton)
         {
             var stackPanel = mainGrid.Children.OfType<StackPanel>().FirstOrDefault();
@@ -174,6 +175,11 @@ namespace SkyLauncher
         private void GoToVersionManagementPage(object sender, RoutedEventArgs e)
         {
             ContentArea.Content = new Views.VersionManagementPage();
+        }
+
+        private void GoToDownloadPage(object sender, RoutedEventArgs e)
+        {
+            ContentArea.Content = new Views.DownloadPage();
         }
     }
 }

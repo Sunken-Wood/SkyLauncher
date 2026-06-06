@@ -43,8 +43,8 @@ public class ScreenshotGalleryViewModel : INotifyPropertyChanged
         
         var imageFiles = Directory.GetFiles(_screenshotFolder)
             .Where(IsImageFile)
-            .OrderByDescending(File.GetLastWriteTime);
-            //.Take(30); // 非常重要，别全加载
+            .OrderByDescending(File.GetLastWriteTime)
+            .Take(80);
 
         foreach (var file in imageFiles)
         {

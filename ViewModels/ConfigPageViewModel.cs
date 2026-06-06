@@ -119,7 +119,7 @@ public class ConfigPageViewModel : INotifyPropertyChanged
         JavaList.Clear();
         foreach (var java in javaList) JavaList.Add(java);
         if (JavaList.Count > 0) SelectedJava = JavaList[0];
-        else MessageBox.Show("未找到已安装的 Java");
+        else HandyControl.Controls.MessageBox.Show("未找到已安装的 Java");
     }
 
     public void LoadData()

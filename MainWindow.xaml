@@ -43,6 +43,13 @@
                         <iconPacks:PackIconPhosphorIcons Kind="ToolboxBold" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="杂项" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
+                    
+                </Button>
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToDownloadPage">
+                    <DockPanel>
+                        <iconPacks:PackIconLucide Kind="HardDriveDownload" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
+                        <TextBlock Text="安装" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
                 </Button>
                 <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToAboutPage">
                     <DockPanel>
