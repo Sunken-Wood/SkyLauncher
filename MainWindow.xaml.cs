@@ -61,7 +61,7 @@ namespace SkyLauncher
                     byte g = Convert.ToByte(colorHex.Substring(4, 2), 16);
                     byte b = Convert.ToByte(colorHex.Substring(6, 2), 16);
 
-                    Color savedColor = Color.FromArgb(a ,r, g, b);
+                    Color savedColor = Color.FromArgb(a, r, g, b);
                     mainGrid.Background = new SolidColorBrush(savedColor);
                 }
                 catch
@@ -131,7 +131,7 @@ namespace SkyLauncher
             _currentPage = page;
         }
 
-        
+
         private void UpdateButtonStyle(Button activeButton)
         {
             var stackPanel = mainGrid.Children.OfType<StackPanel>().FirstOrDefault();
@@ -175,6 +175,11 @@ namespace SkyLauncher
         private void GoToVersionManagementPage(object sender, RoutedEventArgs e)
         {
             ContentArea.Content = new Views.VersionManagementPage();
+        }
+
+        private void GoToDownloadPage(object sender, RoutedEventArgs e)
+        {
+            ContentArea.Content = new Views.DownloadPage();
         }
     }
 }
