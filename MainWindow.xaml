@@ -20,19 +20,19 @@
             
             <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}" Opacity="0.85">
                 <TextBlock Text="NAVIGATION"  Margin="15,20,10,10"  Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12" FontWeight="Bold"/>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToMainPage">
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}" Click="GoToMainPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="House" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="主菜单" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
                 </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToConfigPage">
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}" Click="GoToConfigPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="Wrench" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="可配置项" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
                 </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToVersionManagementPage">
+                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}"  Click="GoToVersionManagementPage">
                     <DockPanel>
                         <iconPacks:PackIconPhosphorIcons Kind="Sliders" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="版本管理" Margin="12,0,0,0" VerticalAlignment="Center"/>
@@ -58,7 +58,7 @@
                     </DockPanel>
                 </Button>
             </StackPanel>
-            <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left" Opacity="0.9"/>
+            <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left"/>
             
         </Grid>
         

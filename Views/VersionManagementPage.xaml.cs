@@ -25,7 +25,12 @@ public partial class VersionManagementPage : UserControl
     {
         if (sender is Button btn && btn.Tag is SkyLauncher.Core.Models.MinecraftInstance instance)
         {
-            VersionManagementViewModel.Instance.DeleteInstanceCommand.Execute(instance);
+            if (instance != null)
+            {
+                VersionManagementViewModel.Instance.DeleteInstanceCommand.Execute(instance);
+            }
+            else { HandyControl.Controls.MessageBox.Show("未找到对应的实例信息！", "错误", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
+
     }
 }

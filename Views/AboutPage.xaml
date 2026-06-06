@@ -7,15 +7,15 @@
              xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" >
-        <Grid Margin="10">
+    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" Opacity="0.85">
+        <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="10" >
+            <StackPanel Grid.Row="0" Margin="15" >
                 <TextBlock Text="SkyLauncher" FontSize="24" FontWeight="Bold" />
                 <TextBlock Text="内部人员预览 版本alpha 1.0.3" FontSize="14" Margin="0,4,0,20"/>
                 <Grid>

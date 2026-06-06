@@ -9,11 +9,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid>
+    <Grid Opacity="0.85">
         <StackPanel>
         
         <!-- 顶部工具栏 -->
-        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10">
+        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" >
             <StackPanel Orientation="Horizontal">
                     <Button Width="80" Margin="0,0,10,0"
                         Click="RefreshButton_Click">

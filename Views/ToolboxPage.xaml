@@ -10,7 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       >
 
-    <Grid Margin="10">
+    <Grid Margin="10" Opacity="0.85" Background="{DynamicResource RegionBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="59*"/>
             <ColumnDefinition Width="721*"/>
@@ -39,11 +39,20 @@
                 </hc:ScrollViewer>
             </TabItem>
             <TabItem Header="背景图片" FontSize="15">
-                <Border>
+                <Border >
                     <StackPanel Margin="10" Width="500">
                         <hc:Divider Padding="0" Content="选择背景图片"/>
                         <hc:ImageSelector Width="100" Height="100" hc:BorderElement.CornerRadius="10" StrokeThickness="2" BorderThickness="2" BorderBrush="{DynamicResource PrimaryBrush}" x:Name="ImageSelector"/>
-                        <Button Content="确认" Margin="0,20,0,0" x:Name="SelectPicBtn" Click="ConfirmSelectPic" FontSize="15" Height="35" Width="60" Style="{StaticResource ButtonPrimary}"/>
+                        <Button Content="确认" Margin="0,20,0,0" x:Name="SelectPicBtn" Click="ConfirmSelectPic" FontSize="15" Height="35" Width="60" Style="{DynamicResource ButtonPrimary}"/>
+                    </StackPanel>
+                </Border>
+            </TabItem>
+            <TabItem Header="切换明暗模式" FontSize="15">
+                <Border Margin="15,10,10,10">
+                    <StackPanel HorizontalAlignment="Left">
+                        <RadioButton Content="Light" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToLight"/>
+                        <RadioButton Content="Dark" HorizontalAlignment="Left" Margin="5,10,10,0" Click="SwitchToDark"/>
+                        <TextBlock Text="因一些原因无法实现"/>
                     </StackPanel>
                 </Border>
             </TabItem>
