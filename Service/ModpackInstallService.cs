@@ -58,7 +58,6 @@ public class ModpackInstallService
                     var progress = (double)downloadTask.DownloadedBytes / downloadTask.TotalBytes.Value;
                     ReportProgress(10 + progress * 80.0);
                 }
-
             })
         };
 
@@ -114,7 +113,9 @@ public class ModpackInstallService
         httpClient: HttpUtils.HttpClient,
         maxRetryCount: 5,  // 重试次数
         concurrentDownloadTasks: 3  // 并发
+
     ),
+
         };
 
         var instance = await Task.Run(() => installer.InstallAsync(ct));
