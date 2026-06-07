@@ -1,20 +1,24 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Nrk.FluentCore.Environment;
+﻿using Nrk.FluentCore.Environment;
+using SkyLauncher.Core.Models;
 using SkyLauncher.ViewModels;
-
+using System.Runtime;
+using System.Windows;
+using System.Windows.Controls;
+using SkyLauncher.Models;
+using System.Diagnostics;
 namespace SkyLauncher.Views;
 
 public partial class ConfigPage : UserControl
 {
     private readonly ConfigPageViewModel _viewModel;
-
+    private LauncherSettings _settings;
     public ConfigPage()
     {
+        
         InitializeComponent();
         _viewModel = new ConfigPageViewModel();
         DataContext = _viewModel;
-
+        _settings = LauncherSettings.Load();
         Loaded += ConfigPage_Loaded;
     }
 
@@ -23,10 +27,10 @@ public partial class ConfigPage : UserControl
         _viewModel.LoadData();
     }
 
-    private void AddNewJava(object sender, RoutedEventArgs e)
+    /*private void AddNewJava(object sender, RoutedEventArgs e)
     {
         _viewModel.AddJavaCommand.Execute(null);
-    }
+    }*/
     private void OpenScreenshotGallery(object sender, RoutedEventArgs e)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
@@ -39,4 +43,6 @@ public partial class ConfigPage : UserControl
             HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+   
 }

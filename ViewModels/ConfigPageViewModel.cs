@@ -15,37 +15,60 @@ public class ConfigPageViewModel : INotifyPropertyChanged
     public static ConfigPageViewModel? _instance;
     public static ConfigPageViewModel Instance => _instance ??= new ConfigPageViewModel();
 
-    private bool _isMansualCollocation = true;
-    public bool IsMansualCollocation
-    {
-        get => _isMansualCollocation;
-        set { 
-            _isMansualCollocation = value;
-            OnPropertyChanged();
-        }
-    }
-
-    private bool _isAutoCollocation;
-    public bool IsAutoCollocation
-    {
-        get => _isAutoCollocation;
-        set
-        {
-            if(value)
-            {
-                MainViewModel.Instance.MaxMemoryMB = (int)(MemoryUtils.GetWindowsMetrics().Free * 0.8);
-            }
-            _isAutoCollocation = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(MaxMemory));
-        }
-    }
-
     public ConfigPageViewModel()
     {
         AddJavaCommand = new RelayCommand(ExecuteAddJava);
         AutoDetectJavaCommand = new RelayCommand(ExecuteAutoDetectJava);
     }
+
+    public bool IsManualCollocation
+    {
+        get => MainViewModel.Instance.IsManualCollocation;
+        set
+        {
+            if (MainViewModel.Instance.IsManualCollocation != value)
+            {
+                MainViewModel.Instance.IsManualCollocation = value;
+                // 保存设置
+                var settings = LauncherSettings.Load();
+                settings.MansualCollocation = value;
+                settings.Save();
+
+                // 通知ConfigPageViewModel的属性变化
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsAutoCollocation));
+                OnPropertyChanged(nameof(IsManualModeEnabled));
+            }
+        }
+    }
+
+    public bool IsAutoCollocation
+    {
+        get => !IsManualCollocation;
+        set
+        {
+            if (value)
+            {
+                IsManualCollocation = false;
+            }
+            else if (!IsManualCollocation)
+            {
+                IsManualCollocation = true;
+            }
+        }
+    }
+
+    public bool IsManualModeEnabled => IsManualCollocation;
+    /*public ConfigPageViewModel()
+    {
+        AddJavaCommand = new RelayCommand(ExecuteAddJava);
+        AutoDetectJavaCommand = new RelayCommand(ExecuteAutoDetectJava);
+        if (_settings == null)
+        {
+            _settings = LauncherSettings.Load();
+        }
+
+    }*/
 
     public double MaxMemory
     {
@@ -112,7 +135,7 @@ public class ConfigPageViewModel : INotifyPropertyChanged
             }
         }
     }
-
+ 
     private void ExecuteAutoDetectJava()
     {
         var javaList = JavaRuntimeService.ScanInstalledJava();
@@ -124,12 +147,22 @@ public class ConfigPageViewModel : INotifyPropertyChanged
 
     public void LoadData()
     {
+        // 同步设置数据
+        var settings = LauncherSettings.Load();
+        MainViewModel.Instance.IsManualCollocation = (bool)settings.MansualCollocation;
+
+        // 同步 Java 选择
         var saved = MainViewModel.Instance.JavaExecutablePath;
         if (!string.IsNullOrEmpty(saved))
         {
             var existing = JavaList.FirstOrDefault(j => j.ExecutablePath == saved);
             if (existing != null) SelectedJava = existing;
         }
+
+        // 刷新所有UI绑定
+        OnPropertyChanged(nameof(IsManualCollocation));
+        OnPropertyChanged(nameof(IsAutoCollocation));
+        OnPropertyChanged(nameof(IsManualModeEnabled));
         OnPropertyChanged(nameof(MaxMemory));
         OnPropertyChanged(nameof(MinMemory));
     }

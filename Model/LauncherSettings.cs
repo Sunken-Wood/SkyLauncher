@@ -17,7 +17,7 @@ public class LauncherSettings
     private static readonly string ConfigPath =
         Path.Combine(ConfigFolder, "settings.json");
 
-    // ===== Java =====
+    // ===== Java&&Memory =====
 
     public string JavaExecutablePath { get; set; } = string.Empty;
 
@@ -25,9 +25,15 @@ public class LauncherSettings
 
     public int MaxMemoryMB { get; set; } = (int)((MemoryUtils.GetWindowsMetrics().Free)*0.8);
 
+    public bool MansualCollocation { get; set; } = true;
+
     // ===== User =====
 
     public string PlayerName { get; set; } = "Steve";
+
+    // ===== Login =====
+
+    public bool IsOnlineMode { get; set; } = false;//暂时空，搁置
 
     // ===== Minecraft =====
 
@@ -43,6 +49,7 @@ public class LauncherSettings
 
     public bool ShowSnapshots { get; set; } = true;
 
+    public bool DarkModeEnable { get; set; } = false ;//由于HandyControl导致工作量较大，搁置
 
     //=====Personiziation=====
 
@@ -94,6 +101,7 @@ public class LauncherSettings
         }
         catch
         {
+            HandyControl.Controls.MessageBox.Show("保存失败，下次启动时将会使用缺省设置", "保存失败", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
         }
     }
 

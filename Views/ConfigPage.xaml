@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       >
 
-    <Grid>
+    <Grid Opacity="0.85">
         <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,7 +35,8 @@
                                         x:Name="manual_allocation"
                                         GroupName="mem_allocation_mode"
                                         Content="手动分配"
-                                        IsChecked="{Binding IsMansualCollocation}"/>
+                                        
+                                        IsChecked="{Binding IsManualCollocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <hc:UniformSpacingPanel Orientation="Vertical" Spacing="32">
                                         <Slider Width="400" 
                                                 hc:TipElement.Visibility="Visible" 
@@ -44,11 +45,12 @@
                                                 Minimum="1024"
                                                 Maximum="{Binding FreeMemory}"
                                                 Value="{Binding MaxMemory, UpdateSourceTrigger=PropertyChanged}" 
+                                                IsEnabled="{Binding IsManualCollocation}"
                                                 TickFrequency="128" 
                                                 TickPlacement="BottomRight" 
                                                 HorizontalAlignment="Left" 
                                                 Margin="20,0,0,15"
-                                                IsEnabled="{Binding IsMansualCollocation}"/>
+                                                />
                                     </hc:UniformSpacingPanel>
                                     <TextBlock Text="{Binding MaxMemory, StringFormat='当前设置: {0} MB'}" Margin="20,0,20,10" Foreground="{DynamicResource SecondaryTextBrush}"/>
                                 </DockPanel>
@@ -58,7 +60,8 @@
                                     <RadioButton
                                         GroupName="mem_allocation_mode"
                                         Content="自动分配"
-                                        IsChecked="{Binding IsAutoCollocation}"/>
+                                        IsChecked="{Binding IsAutoCollocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        />
                                 </DockPanel>
                             </StackPanel>
 
@@ -76,7 +79,7 @@
           DisplayMemberPath="DisplayText" 
           Width="230" />
 
-                                    <!-- 按钮改为 Command -->
+                                    
                                     <hc:ButtonGroup>
                                     <Button Content="添加" Margin="15,0,0,0"  FontSize="15"
         Command="{Binding AddJavaCommand}" Style="{StaticResource ButtonPrimary}"/>

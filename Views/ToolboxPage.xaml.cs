@@ -1,12 +1,17 @@
 ﻿using HandyControl.Controls;
 using HandyControl.Data;
 using HandyControl.Themes;
-using SkyLauncher.Views;
-using SkyLauncher.Service;
+using HandyControl.Tools;
 using SkyLauncher.Core.Models;
+using SkyLauncher.Service;
+using SkyLauncher.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,9 +23,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.IO;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SkyLauncher.Views
 {
@@ -46,7 +48,22 @@ namespace SkyLauncher.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        //private bool isFirstLoad = true;
 
+        /*private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isFirstLoad)
+            {
+                isFirstLoad = false;
+                return;
+            }
+            if (MainTabControl.SelectedIndex == 0)
+            {
+                var currentContent = ThemeTransition.Content;
+                ThemeTransition.Content = null;
+                ThemeTransition.Content = currentContent;
+            }
+        }*/
         public string ThemeColor
         {
             get => _settings?.ThemeColorSetting;
@@ -61,7 +78,44 @@ namespace SkyLauncher.Views
             }
         }
 
-        
+        private void SwitchToLight(object sender, RoutedEventArgs e)
+        {
+            /*var dicts = Application.Current.Resources.MergedDictionaries;
+            for (int i = dicts.Count - 1; i >= 0; i--)
+            {
+                var source = dicts[i].Source?.ToString();
+                if (source != null && source.Contains("Skin"))
+                {
+                    dicts.RemoveAt(i);
+                }
+            }
+            Application.Current.Resources.MergedDictionaries.Add(
+                ResourceHelper.GetSkin(SkinType.Default));
+            var brush = Application.Current.FindResource("RegionBrush") as SolidColorBrush;
+            Debug.WriteLine(brush.Color);
+            dicts.Add(ResourceHelper.GetSkin(SkinType.Default));
+
+            */
+        }
+        private void SwitchToDark(object sender, RoutedEventArgs e)
+        {
+            /*var dicts = Application.Current.Resources.MergedDictionaries;
+            for (int i = dicts.Count - 1; i >= 0; i--)
+            {
+                var source = dicts[i].Source?.ToString();
+                if (source != null && source.Contains("Skin"))
+                {
+                    dicts.RemoveAt(i);
+                }
+            }
+            Application.Current.Resources.MergedDictionaries.Add(
+                ResourceHelper.GetSkin(SkinType.Dark));
+            var brush = Application.Current.FindResource("RegionBrush") as SolidColorBrush;
+            Debug.WriteLine(brush.Color);
+            dicts.Add(ResourceHelper.GetSkin(SkinType.Dark));
+
+            */
+        }
 
 
         public System.Windows.Media.ImageSource BackgroundImagePath { get; set; }
@@ -88,7 +142,7 @@ namespace SkyLauncher.Views
             {
                 Color selectedColor = e.Info;
                 ThemeColor = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
-                System.Diagnostics.Debug.WriteLine($"OnSelectedColorChanged - A:{selectedColor.A} R:{selectedColor.R} G:{selectedColor.G} B:{selectedColor.B}");
+                //System.Diagnostics.Debug.WriteLine($"OnSelectedColorChanged - A:{selectedColor.A} R:{selectedColor.R} G:{selectedColor.G} B:{selectedColor.B}");
                 ThemeColorChanged?.Invoke(selectedColor);
             }
         }
@@ -129,5 +183,7 @@ namespace SkyLauncher.Views
                 //public RelayCommand InfoCmd => new(() => Growl.Info(Properties.Langs.Lang.GrowlInfo, _token));
     }
         }
+
+        
     }
 }
