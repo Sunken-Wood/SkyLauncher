@@ -14,54 +14,61 @@ public class ConfigPageViewModel : INotifyPropertyChanged
 {
     public static ConfigPageViewModel? _instance;
     public static ConfigPageViewModel Instance => _instance ??= new ConfigPageViewModel();
-    private LauncherSettings _settings;
 
-    public string _isMansualCollocation ;
-    //_settings = LauncherSettings.Load();
+    public ConfigPageViewModel()
+    {
+        AddJavaCommand = new RelayCommand(ExecuteAddJava);
+        AutoDetectJavaCommand = new RelayCommand(ExecuteAutoDetectJava);
+    }
 
     public bool IsManualCollocation
     {
-        get => (bool)_settings.MansualCollocation;  // 注意：如果你的settings里也是MansualCollocation，保持一致
+        get => MainViewModel.Instance.IsManualCollocation;
         set
         {
-            if ((bool)_settings.MansualCollocation != value)
+            if (MainViewModel.Instance.IsManualCollocation != value)
             {
-                _settings.MansualCollocation = value;
-                _settings.Save();
+                MainViewModel.Instance.IsManualCollocation = value;
+                // 保存设置
+                var settings = LauncherSettings.Load();
+                settings.MansualCollocation = value;
+                settings.Save();
+
+                // 通知ConfigPageViewModel的属性变化
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsAutoCollocation));
-                OnPropertyChanged(nameof(IsManualModeEnabled)); // 添加这个通知
+                OnPropertyChanged(nameof(IsManualModeEnabled));
             }
         }
     }
 
     public bool IsAutoCollocation
     {
-        get => !IsManualCollocation;  // 直接使用IsManualCollocation，保证逻辑一致
+        get => !IsManualCollocation;
         set
         {
             if (value)
             {
                 IsManualCollocation = false;
-                // IsManualCollocation的setter已经包含了所有通知，这里不需要重复
             }
-            // 添加：如果设为false（即用户点击自动分配但当前已是自动）
             else if (!IsManualCollocation)
             {
-                // 手动设为手动模式
                 IsManualCollocation = true;
             }
         }
     }
 
-    // 添加这个属性用于控制Slider的启用状态
     public bool IsManualModeEnabled => IsManualCollocation;
-    public ConfigPageViewModel()
+    /*public ConfigPageViewModel()
     {
         AddJavaCommand = new RelayCommand(ExecuteAddJava);
         AutoDetectJavaCommand = new RelayCommand(ExecuteAutoDetectJava);
-        _settings = LauncherSettings.Load();
-    }
+        if (_settings == null)
+        {
+            _settings = LauncherSettings.Load();
+        }
+
+    }*/
 
     public double MaxMemory
     {
@@ -140,12 +147,22 @@ public class ConfigPageViewModel : INotifyPropertyChanged
 
     public void LoadData()
     {
+        // 同步设置数据
+        var settings = LauncherSettings.Load();
+        MainViewModel.Instance.IsManualCollocation = (bool)settings.MansualCollocation;
+
+        // 同步 Java 选择
         var saved = MainViewModel.Instance.JavaExecutablePath;
         if (!string.IsNullOrEmpty(saved))
         {
             var existing = JavaList.FirstOrDefault(j => j.ExecutablePath == saved);
             if (existing != null) SelectedJava = existing;
         }
+
+        // 刷新所有UI绑定
+        OnPropertyChanged(nameof(IsManualCollocation));
+        OnPropertyChanged(nameof(IsAutoCollocation));
+        OnPropertyChanged(nameof(IsManualModeEnabled));
         OnPropertyChanged(nameof(MaxMemory));
         OnPropertyChanged(nameof(MinMemory));
     }

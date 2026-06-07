@@ -3,8 +3,10 @@ using SkyLauncher.Core.Models;
 using SkyLauncher.Core.Services;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace SkyLauncher.ViewModels;
 
@@ -13,6 +15,7 @@ namespace SkyLauncher.ViewModels;
 /// </summary>
 public class MainViewModel
 {
+
     private static MainViewModel? _instance;
     public static MainViewModel Instance => _instance ??= new MainViewModel();
 
@@ -30,8 +33,28 @@ public class MainViewModel
         
         AutoScanJava();
         RestoreSelectedInstance();
+
+    }
+    private bool _isManualCollocation;
+    public bool IsManualCollocation
+    {
+        get => _isManualCollocation;
+        set
+        {
+            if (_isManualCollocation != value)
+            {
+                _isManualCollocation = value;
+                OnPropertyChanged(); // 通知UI更新
+            }
+        }
     }
 
+    // INotifyPropertyChanged 实现
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? name = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    }
     // ===== 数据 =====
     public ObservableCollection<JavaRuntime> JavaList { get; }
     public ObservableCollection<MinecraftInstance> InstanceList { get; }
