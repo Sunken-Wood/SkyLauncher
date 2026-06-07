@@ -48,7 +48,7 @@ namespace SkyLauncher.Views
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private bool isFirstLoad = true;
+        //private bool isFirstLoad = true;
 
         /*private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -80,7 +80,7 @@ namespace SkyLauncher.Views
 
         private void SwitchToLight(object sender, RoutedEventArgs e)
         {
-            var dicts = Application.Current.Resources.MergedDictionaries;
+            /*var dicts = Application.Current.Resources.MergedDictionaries;
             for (int i = dicts.Count - 1; i >= 0; i--)
             {
                 var source = dicts[i].Source?.ToString();
@@ -95,11 +95,11 @@ namespace SkyLauncher.Views
             Debug.WriteLine(brush.Color);
             dicts.Add(ResourceHelper.GetSkin(SkinType.Default));
 
-
+            */
         }
         private void SwitchToDark(object sender, RoutedEventArgs e)
         {
-            var dicts = Application.Current.Resources.MergedDictionaries;
+            /*var dicts = Application.Current.Resources.MergedDictionaries;
             for (int i = dicts.Count - 1; i >= 0; i--)
             {
                 var source = dicts[i].Source?.ToString();
@@ -113,7 +113,8 @@ namespace SkyLauncher.Views
             var brush = Application.Current.FindResource("RegionBrush") as SolidColorBrush;
             Debug.WriteLine(brush.Color);
             dicts.Add(ResourceHelper.GetSkin(SkinType.Dark));
-            
+
+            */
         }
 
 
@@ -141,7 +142,7 @@ namespace SkyLauncher.Views
             {
                 Color selectedColor = e.Info;
                 ThemeColor = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
-                System.Diagnostics.Debug.WriteLine($"OnSelectedColorChanged - A:{selectedColor.A} R:{selectedColor.R} G:{selectedColor.G} B:{selectedColor.B}");
+                //System.Diagnostics.Debug.WriteLine($"OnSelectedColorChanged - A:{selectedColor.A} R:{selectedColor.R} G:{selectedColor.G} B:{selectedColor.B}");
                 ThemeColorChanged?.Invoke(selectedColor);
             }
         }

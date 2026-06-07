@@ -14,37 +14,53 @@ public class ConfigPageViewModel : INotifyPropertyChanged
 {
     public static ConfigPageViewModel? _instance;
     public static ConfigPageViewModel Instance => _instance ??= new ConfigPageViewModel();
+    private LauncherSettings _settings;
 
-    private bool _isMansualCollocation = true;
-    public bool IsMansualCollocation
-    {
-        get => _isMansualCollocation;
-        set { 
-            _isMansualCollocation = value;
-            OnPropertyChanged();
-        }
-    }
+    public string _isMansualCollocation ;
+    //_settings = LauncherSettings.Load();
 
-    private bool _isAutoCollocation;
-    public bool IsAutoCollocation
+    public bool IsManualCollocation
     {
-        get => _isAutoCollocation;
+        get => (bool)_settings.MansualCollocation;  // 注意：如果你的settings里也是MansualCollocation，保持一致
         set
         {
-            if(value)
+            if ((bool)_settings.MansualCollocation != value)
             {
-                MainViewModel.Instance.MaxMemoryMB = (int)(MemoryUtils.GetWindowsMetrics().Free * 0.8);
+                _settings.MansualCollocation = value;
+                _settings.Save();
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsAutoCollocation));
+                OnPropertyChanged(nameof(IsManualModeEnabled)); // 添加这个通知
             }
-            _isAutoCollocation = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(MaxMemory));
         }
     }
 
+    public bool IsAutoCollocation
+    {
+        get => !IsManualCollocation;  // 直接使用IsManualCollocation，保证逻辑一致
+        set
+        {
+            if (value)
+            {
+                IsManualCollocation = false;
+                // IsManualCollocation的setter已经包含了所有通知，这里不需要重复
+            }
+            // 添加：如果设为false（即用户点击自动分配但当前已是自动）
+            else if (!IsManualCollocation)
+            {
+                // 手动设为手动模式
+                IsManualCollocation = true;
+            }
+        }
+    }
+
+    // 添加这个属性用于控制Slider的启用状态
+    public bool IsManualModeEnabled => IsManualCollocation;
     public ConfigPageViewModel()
     {
         AddJavaCommand = new RelayCommand(ExecuteAddJava);
         AutoDetectJavaCommand = new RelayCommand(ExecuteAutoDetectJava);
+        _settings = LauncherSettings.Load();
     }
 
     public double MaxMemory
@@ -112,7 +128,7 @@ public class ConfigPageViewModel : INotifyPropertyChanged
             }
         }
     }
-
+ 
     private void ExecuteAutoDetectJava()
     {
         var javaList = JavaRuntimeService.ScanInstalledJava();
