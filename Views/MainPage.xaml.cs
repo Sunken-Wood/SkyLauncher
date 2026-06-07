@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
-using HandyControl.Controls;
+﻿using HandyControl.Controls;
 using SkyLauncher.ViewModels;
 using System.Windows.Controls;
 using System.Linq;

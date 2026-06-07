@@ -6,8 +6,10 @@ namespace SkyLauncher.Views;
 
 public partial class VersionManagementPage : UserControl
 {
-    public VersionManagementPage()
+    private MainWindow Window;
+    public VersionManagementPage(MainWindow window)
     {
+        Window = window;
         InitializeComponent();
         DataContext = VersionManagementViewModel.Instance;
         Loaded += VersionManagementPage_Loaded;
@@ -32,5 +34,12 @@ public partial class VersionManagementPage : UserControl
             else { HandyControl.Controls.MessageBox.Show("未找到对应的实例信息！", "错误", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
+    }
+
+    private void GoToMinecraftSettingPage(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button btn && btn.Tag is SkyLauncher.Core.Models.MinecraftInstance instance){
+            Window.ContentArea.Content = new Views.MinecraftSettingPage(instance);
+        }
     }
 }

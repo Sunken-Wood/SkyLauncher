@@ -125,7 +125,7 @@ namespace SkyLauncher
                                     ?? (Grid)mainGrid.ColumnDefinitions[1]?.FindName("ContentArea");
 
         // 导航方法
-        private void NavigateToPage(Page page, Button activeButton = null)
+        public void NavigateToPage(Page page, Button activeButton = null)
         {
             ContentArea.Content = page;
             _currentPage = page;
@@ -174,7 +174,7 @@ namespace SkyLauncher
 
         private void GoToVersionManagementPage(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new Views.VersionManagementPage();
+            ContentArea.Content = new Views.VersionManagementPage(this);
         }
 
         private void GoToDownloadPage(object sender, RoutedEventArgs e)

@@ -10,10 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageReference Include="HandyControl" Version="3.6.0-rc3" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="6.2.1" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="6.2.1" />
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="NbtToolkit" Version="0.1.2-beta" />
     <PackageReference Include="System.Text.Json" Version="10.0.8" />
     <PackageReference Include="Tomlyn" Version="2.4.0" />

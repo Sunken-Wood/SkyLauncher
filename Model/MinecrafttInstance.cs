@@ -44,4 +44,5 @@ public class MinecraftInstance
 
     public string ResourcePacksPath =>
         Path.Combine(GameDirectory, "resourcepacks");
+
 }
