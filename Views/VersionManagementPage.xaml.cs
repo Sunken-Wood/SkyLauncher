@@ -36,6 +36,7 @@ public partial class VersionManagementPage : UserControl
 
     }
 
+    // 跳转到版本设置页面
     private void GoToMinecraftSettingPage(object sender, RoutedEventArgs e)
     {
         if (sender is Button btn && btn.Tag is SkyLauncher.Core.Models.MinecraftInstance instance){

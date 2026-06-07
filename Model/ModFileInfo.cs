@@ -8,11 +8,13 @@ namespace SkyLauncher.FluentCore
 {
     public class ModFileInfo
     {
-        public string FileName { get; set; }
-        public string FullPath { get; set; }
-        public long FileSize { get; set; }
-        public string FormattedSize => FormatSize(FileSize);
+        public string FileName { get; set; } // 模组文件名
+        public string FullPath { get; set; } // 模组文件全名
+        public long FileSize { get; set; } // 模组文件大小
+        public string FormattedSize => FormatSize(FileSize); // 模组文件大小
 
+
+        // 文件大小格式化
         private static string FormatSize(long bytes)
         {
             string[] sizes = { "B", "KB", "MB", "GB" };
