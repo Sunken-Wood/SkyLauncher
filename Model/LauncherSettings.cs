@@ -57,6 +57,8 @@ public class LauncherSettings
 
     public string PictureBackgroundPath { get; set; } = "";
 
+    public float LauncherOpacity { get; set; } = 0.85f;
+
 
     // ===== Load / Save =====
 

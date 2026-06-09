@@ -9,56 +9,75 @@
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
     <DockPanel Margin="10">
-        <hc:StepBar IsMouseSelectable="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40" Visibility="Hidden" x:Name="StepBar">
-            <hc:StepBarItem Content="初始化"/>
-            <hc:StepBarItem Content="生成指令"/>
-            <hc:StepBarItem Content="完成"/>
-        </hc:StepBar>
-        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Opacity="0.85">
-            <Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20,20,20,20">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+        <hc:TransitioningContentControl>
+        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Grid Width="Auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                    <Border CornerRadius="5" Width="150" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <iconPacks:PackIconRemixIcon Kind="JavaLine" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            <TextBlock Grid.Row="1" Text="{Binding JavaDisplayInfo}"  Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,0,0,18"/>
+                    </Grid>
+                </Border>
+                    <Border Grid.Column="1" CornerRadius="5" Width="150" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                            <iconPacks:PackIconMingCuteIcons Kind="VersionLine" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            <TextBlock Grid.Row="1" Text="{Binding SelectedVersionInfo}" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" MaxWidth="130" Margin="0,0,0,18"/>
 
-                <!-- 玩家名输入 -->
-                <hc:TextBox 
-        hc:InfoElement.ShowClearButton="True"
-        Text="{Binding PlayerName, UpdateSourceTrigger=PropertyChanged}" 
-        hc:InfoElement.Title="玩家ID" 
-        Width="200"
-                Height="60"
-        Margin="10,0,0,20"
-        HorizontalAlignment="Center" Grid.Row="0"/>
+                    </Grid>
+                </Border>
+                    <Border Grid.Column="2" CornerRadius="5" Width="150" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                            <iconPacks:PackIconMingCuteIcons Kind="UserHideLine" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="100">
+                                <TextBlock Text="玩家ID" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                <hc:TextBox 
+                            hc:InfoElement.ShowClearButton="True"
+                            Text="{Binding PlayerName, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"
+                           />
+                            </StackPanel>
 
-                <!-- Java 信息显示 -->
-                <StackPanel Grid.Row="1" Margin="0,0,0,20" HorizontalAlignment="Center">
-
-                    <DockPanel VerticalAlignment="Center">
-                        <iconPacks:PackIconRemixIcon Kind="JavaLine" Width="12" Height="12" Foreground="{DynamicResource SecondaryTextBrush}" />
-                        <TextBlock Text="{Binding JavaDisplayInfo}"  Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center"/>
-                    </DockPanel>
-
-
-                    <DockPanel VerticalAlignment="Center">
-                        <iconPacks:PackIconMingCuteIcons Kind="VersionLine" Width="12" Height="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
-                        <TextBlock Text="{Binding SelectedVersionInfo}" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" MaxWidth="150"/>
-                    </DockPanel>
-
-                </StackPanel>
-                <ToggleButton 
-        Style="{StaticResource ToggleButtonLoading}" 
-        IsChecked="{Binding IsUploading, Mode=TwoWay}" 
-        Content="启动"  
-        FontSize="16" 
-        Height="37"
-        Width="120" 
-        Command="{Binding LaunchCommand}"
-        x:Name="LauchGame"
-            Grid.Row="2"/>
-            </Grid>
+                        </Grid>
+                   
+                </Border>
+                    <Border Grid.Column="3" CornerRadius="5" Width="150" Opacity="0.9" Background="{DynamicResource BackgroundBrush}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <iconPacks:PackIconLucide Kind="Rocket" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                            <ToggleButton 
+                    Style="{StaticResource ToggleButtonLoading}" 
+                    IsChecked="{Binding IsUploading, Mode=TwoWay}" 
+                    Content="启动"  
+                    FontSize="13" 
+                    Height="30"
+                    Width="100" 
+                    Command="{Binding LaunchCommand}"
+                    x:Name="LauchGame"  Margin="20,0,20,5" Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                </Grid>
         </Border>
+        </hc:TransitioningContentControl>
     </DockPanel>
 </UserControl>

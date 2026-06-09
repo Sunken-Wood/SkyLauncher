@@ -17,6 +17,7 @@ public class VersionManagementViewModel : INotifyPropertyChanged
     private static VersionManagementViewModel? _instance;
     public static VersionManagementViewModel Instance => _instance ??= new VersionManagementViewModel();
 
+
     public VersionManagementViewModel()
     {
         RefreshCommand = new RelayCommand(ExecuteRefresh);

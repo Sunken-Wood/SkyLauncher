@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Margin="15" Opacity="0.85">
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -64,18 +64,33 @@
                 <GridView>
                     <GridViewColumn Width="120" Header="版本" DisplayMemberBinding="{Binding VersionId}"/>
                     <GridViewColumn Width="350" Header="游戏目录" DisplayMemberBinding="{Binding GameDirectory}"/>
-                    <GridViewColumn Width="120" Header="操作">
+                    <GridViewColumn Width="160" Header="操作">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="删除实例"
-        ToolTip="删除此实例"
-                    Click="DeleteInstance_Click"
-                    Tag="{Binding}"
-        Style="{StaticResource ButtonDashedDanger}"
-        x:Name="DeleteInstanceButton"
-        />
+                                <Grid Width="160">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Content="删除实例"
+                                            ToolTip="删除此实例"
+                                            Click="DeleteInstance_Click"
+                                            Tag="{Binding}"
+                                            Style="{StaticResource ButtonDashedDanger}"
+                                            x:Name="DeleteInstanceButton"
+                                            Grid.Column="0"/>
+                                    <Button Content="管理"
+                                            ToolTip="打开此实例的设置页面"
+                                            Click="GoToMinecraftSettingPage"
+                                            Tag="{Binding}"
+                                           
+                                            Style="{StaticResource ButtonDashedInfo}"
+                                            x:Name="GotoMinecraftSettingPageButton"
+                                            Grid.Column="1"/>
+                                </Grid>
+
                             </DataTemplate>
-                            
+          
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
