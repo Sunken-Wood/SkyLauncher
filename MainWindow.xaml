@@ -18,45 +18,45 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}" Opacity="0.85">
+            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}" x:Name="NavigatePannel">
                 <TextBlock Text="NAVIGATION"  Margin="15,20,10,10"  Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12" FontWeight="Bold"/>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}" Click="GoToMainPage">
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToMainPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="House" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="主菜单" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
-                </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}" Click="GoToConfigPage">
+                </RadioButton>
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToConfigPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="Wrench" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="可配置项" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
-                </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{DynamicResource ButtonDefault}"  Click="GoToVersionManagementPage">
+                </RadioButton>
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}"  Click="GoToVersionManagementPage">
                     <DockPanel>
                         <iconPacks:PackIconPhosphorIcons Kind="Sliders" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="版本管理" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
-                </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToToolboxPage">
+                </RadioButton>
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150"  Click="GoToToolboxPage" Style="{StaticResource RadioButtonIcon}">
                     <DockPanel>
                         <iconPacks:PackIconPhosphorIcons Kind="ToolboxBold" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="杂项" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
                     
-                </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToDownloadPage">
+                </RadioButton>
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToDownloadPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="HardDriveDownload" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="安装" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
-                </Button>
-                <Button Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource ButtonDefault}" Click="GoToAboutPage">
+                </RadioButton>
+                <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToAboutPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="Info" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="关于" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
-                </Button>
+                </RadioButton>
             </StackPanel>
             <hc:TransitioningContentControl x:Name="ContentArea" Grid.Column="1" TransitionMode="Right2Left"/>
             

@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Margin="15" Opacity="0.85">
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -79,11 +79,12 @@
                                             Style="{StaticResource ButtonDashedDanger}"
                                             x:Name="DeleteInstanceButton"
                                             Grid.Column="0"/>
-                                    <Button Content="设置"
+                                    <Button Content="管理"
                                             ToolTip="打开此实例的设置页面"
                                             Click="GoToMinecraftSettingPage"
                                             Tag="{Binding}"
-                                            Style="{StaticResource ButtonDashedBaseStyle}"
+                                           
+                                            Style="{StaticResource ButtonDashedInfo}"
                                             x:Name="GotoMinecraftSettingPageButton"
                                             Grid.Column="1"/>
                                 </Grid>

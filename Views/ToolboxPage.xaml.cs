@@ -33,12 +33,18 @@ namespace SkyLauncher.Views
     {
         private LauncherSettings _settings;
         private readonly string _token;
-
+        public event EventHandler<double> OpacityChanged;
         public ToolboxPage()
         {
             InitializeComponent();
             _settings = LauncherSettings.Load(); // 先加载设置
             //_token = token;
+            if (_settings != null)
+            {
+                OpacitySlider.Value = _settings.LauncherOpacity;
+                Debug.WriteLine(_settings.LauncherOpacity);
+            }
+            DataContext = this;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -141,7 +147,7 @@ namespace SkyLauncher.Views
             if (e.Info != null)
             {
                 Color selectedColor = e.Info;
-                ThemeColor = $"#{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
+                ThemeColor = $"#{selectedColor.A:X2}{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
                 //System.Diagnostics.Debug.WriteLine($"OnSelectedColorChanged - A:{selectedColor.A} R:{selectedColor.R} G:{selectedColor.G} B:{selectedColor.B}");
                 ThemeColorChanged?.Invoke(selectedColor);
             }
@@ -181,9 +187,29 @@ namespace SkyLauncher.Views
                 ThemeColor = $"#{selectedColor.A:X2}{selectedColor.R:X2}{selectedColor.G:X2}{selectedColor.B:X2}";
                 HandyControl.Controls.MessageBox.Show($"已选择颜色: {ThemeColor}", "颜色选择", MessageBoxButton.OK, MessageBoxImage.Information);
                 //public RelayCommand InfoCmd => new(() => Growl.Info(Properties.Langs.Lang.GrowlInfo, _token));
-    }
+            }
         }
 
-        
+        private void ConfirmOpacity(object sender, RoutedEventArgs e)
+        {
+            double opacity = OpacitySlider.Value;
+
+            if (_settings != null)
+            {
+                _settings.LauncherOpacity = (float)opacity;
+                _settings.Save();
+                OpacityChanged?.Invoke(this, opacity);
+                Debug.WriteLine(_settings.LauncherOpacity);
+                Debug.WriteLine(_settings.LauncherOpacity.GetType());
+                HandyControl.Controls.MessageBox.Show(
+                    $"已设置启动器不透明度为: {opacity:F2}",
+                    "设置成功",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+               
+            }
+        }
+
+
     }
 }

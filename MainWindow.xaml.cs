@@ -24,7 +24,8 @@ namespace SkyLauncher
         // 用一个字段记录当前显示的页面
         private Page _currentPage;
         private LauncherSettings _settings;
-
+        public event EventHandler<double> OpacityChanged;
+        private Views.ToolboxPage? _toolboxInstance;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace SkyLauncher
             {
                 GoToMainPage();
                 ApplySavedSettings();
+                ApplyInitialOpacity();
             };
 
             // 订阅事件
@@ -45,8 +47,9 @@ namespace SkyLauncher
         }
 
         /// <summary>
-        /// 应用保存的设置（颜色和背景图片）
+        /// 这部分代码负责在主窗口加载时应用用户之前保存的设置，包括主题颜色和背景图片。它从LauncherSettings中读取保存的设置，并尝试将它们应用到主窗口的UI元素上。如果保存的设置无效或加载失败，代码会安全地处理异常并继续使用默认设置。
         /// </summary>
+        #region
         private void ApplySavedSettings()
         {
             // 应用保存的主题颜色
@@ -86,22 +89,46 @@ namespace SkyLauncher
                 }
             }
         }
-
+        //来自ToolboxPage的事件处理方法
         private void OnThemeColorChanged(Color newColor)
         {
-            // 主窗口响应颜色变化
+            
             Dispatcher.Invoke(() =>
             {
                 mainGrid.Background = new SolidColorBrush(newColor);
             });
         }
+        private void ApplyInitialOpacity()
+        {
+            var settings = LauncherSettings.Load();
+            if (settings != null)
+            {
+                this.Opacity = settings.LauncherOpacity;
+            }
+        }
 
         protected override void OnClosed(EventArgs e)
         {
-            // 取消订阅，防止内存泄漏
+            // 取消静态订阅
             ToolboxPage.ThemeColorChanged -= OnThemeColorChanged;
             ToolboxPage.BackgroundImagePathChanged -= OnBackgroundImagePathChanged;
+
+            // 如果有订阅到某个 ToolboxPage 实例，也取消订阅
+            if (_toolboxInstance != null)
+            {
+                _toolboxInstance.OpacityChanged -= OnOpacityChanged;
+                _toolboxInstance = null;
+            }
+
             base.OnClosed(e);
+        }
+
+        private void OnOpacityChanged(object? sender, double opacity)
+        {
+            // 更新透明度
+            ContentArea.Opacity = opacity;
+            NavigatePannel.Opacity = opacity;
+            this.Opacity = 1;
         }
 
         private void OnBackgroundImagePathChanged(string newPath)
@@ -119,7 +146,7 @@ namespace SkyLauncher
                 }
             });
         }
-
+        #endregion
         //
         private Grid ContentGrid => mainGrid.Children.OfType<Grid>().FirstOrDefault()
                                     ?? (Grid)mainGrid.ColumnDefinitions[1]?.FindName("ContentArea");
@@ -169,7 +196,13 @@ namespace SkyLauncher
 
         private void GoToToolboxPage(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new Views.ToolboxPage();
+            if (_toolboxInstance == null)
+            {
+                _toolboxInstance = new ToolboxPage();
+                _toolboxInstance.OpacityChanged += OnOpacityChanged;
+            }
+
+            ContentArea.Content = _toolboxInstance;
         }
 
         private void GoToVersionManagementPage(object sender, RoutedEventArgs e)

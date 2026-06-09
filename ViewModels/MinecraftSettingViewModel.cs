@@ -3,16 +3,16 @@ using CommunityToolkit.Mvvm.Input;
 using SkyLauncher.FluentCore;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using HandyControl.Controls;
 
 namespace SkyLauncher.ViewModels
 {
     public partial class MinecraftSettingViewModel : ObservableObject
     {
-        // 序列化Mods集合（自动生成 Mods集合）
         [ObservableProperty]
         private ObservableCollection<ModFileInfo> _mods = new ObservableCollection<ModFileInfo>();
 
-        // 初始化变量
         private SkyLauncher.Core.Models.MinecraftInstance _instance;
         private readonly string modsFolder;
 
@@ -25,21 +25,15 @@ namespace SkyLauncher.ViewModels
 
         public MinecraftSettingViewModel(SkyLauncher.Core.Models.MinecraftInstance instance)
         {
-            // 获取模组文件夹
             _instance = instance;
             modsFolder = _instance.ModsPath;
-
-            // 获取游戏版本名称
             MinecraftName = _instance.Name;
-
-            // 加载模组列表
             LoadMods();
         }
 
         [RelayCommand]
         private void LoadMods()
         {
-            // 清空Mods集合
             Mods.Clear();
 
             if (!Directory.Exists(modsFolder))
@@ -47,19 +41,64 @@ namespace SkyLauncher.ViewModels
                 return;
             }
 
-            // 获取所有后缀名为jar的文件
-            var files = Directory.GetFiles(modsFolder, "*.jar")
+            var jarFiles = Directory.GetFiles(modsFolder, "*.jar")
                 .Select(fullPath => new ModFileInfo
                 {
                     FullPath = fullPath,
                     FileName = Path.GetFileName(fullPath),
-                    FileSize = new FileInfo(fullPath).Length
+                    FileSize = new FileInfo(fullPath).Length,
+                    IsEnabled = true
                 });
 
-            // 将文件添加到Mods集合
-            foreach (var file in files)
+            var disabledFiles = Directory.GetFiles(modsFolder, "*.disabled")
+                .Select(fullPath => new ModFileInfo
+                {
+                    FullPath = fullPath,
+                    FileName = Path.GetFileName(fullPath),
+                    FileSize = new FileInfo(fullPath).Length,
+                    IsEnabled = false
+                });
+
+            foreach (var file in jarFiles.Concat(disabledFiles))
             {
                 Mods.Add(file);
+            }
+        }
+
+        public void ToggleModEnabled(ModFileInfo mod, bool isEnabled)
+        {
+            try
+            {
+                string currentPath = mod.FullPath;
+                string directory = Path.GetDirectoryName(currentPath);
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(currentPath);
+
+                if (isEnabled)
+                {
+                    // 从 .disabled 改为 .jar
+                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".jar");
+                    if (File.Exists(currentPath))
+                    {
+                        File.Move(currentPath, newPath);
+                        mod.FullPath = newPath;
+                        mod.FileName = Path.GetFileName(newPath);
+                    }
+                }
+                else
+                {
+                    // 从 .jar 改为 .disabled
+                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".disabled");
+                    if (File.Exists(currentPath))
+                    {
+                        File.Move(currentPath, newPath);
+                        mod.FullPath = newPath;
+                        mod.FileName = Path.GetFileName(newPath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HandyControl.Controls.MessageBox.Show("切换模组状态失败，请检查文件权限或是否被其他程序占用。", "错误",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Error);
             }
         }
     }
