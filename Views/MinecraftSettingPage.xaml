@@ -20,7 +20,7 @@
                       ItemsSource="{Binding Mods}" 
                       hc:DataGridAttach.ShowRowNumber="True"
                       AutoGenerateColumns="False"
-                      x:Name="ModsDataGrid" Opacity="0.85">
+                      x:Name="ModsDataGrid" Opacity="0.9">
                     <DataGrid.Columns>
                         <DataGridTextColumn  Width="400" Header="名称" Binding="{Binding FileName}" IsReadOnly="True" />
                         <DataGridTextColumn Width="130" Header="大小" Binding="{Binding FormattedSize}" IsReadOnly="True" />
