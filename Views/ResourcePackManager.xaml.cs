@@ -21,17 +21,27 @@ namespace SkyLauncher.Views
     /// </summary>
     public partial class ResourcePackManager : UserControl
     {
+        private readonly ResourcePackManagerViewModel _viewModel;
         public ResourcePackManager()
         {
-            InitializeComponent();
+            
+        InitializeComponent();
             try
             {
-                DataContext = new ResourcePackManagerViewModel();
+                _viewModel = new ResourcePackManagerViewModel();
+                DataContext = _viewModel;
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message, "错误");
             }
+        }
+
+
+
+        private void OpenResourcepackFolder(object sender, RoutedEventArgs e)
+        {
+            _viewModel.OpenResourcePackFolder();
         }
     }
 }

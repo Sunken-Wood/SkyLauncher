@@ -12,6 +12,7 @@ public partial class ConfigPage : UserControl
 {
     private readonly ConfigPageViewModel _viewModel;
     private LauncherSettings _settings;
+    private MainWindow Window;
 
     public ConfigPage()
     {
@@ -50,6 +51,20 @@ public partial class ConfigPage : UserControl
         if (mainWindow != null)
         {
             mainWindow.ContentArea.Content = new Views.ResourcePackManager();
+        }
+        else
+        {
+            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+    private void GoToMinecraftSettingPage(object sender, RoutedEventArgs e)
+    {
+        var mainWindow = Application.Current.MainWindow as MainWindow;
+        if (mainWindow != null)
+        {
+            var selectedInstance = MainViewModel.Instance.SelectedInstance;
+
+            mainWindow.ContentArea.Content = new Views.MinecraftSettingPage(selectedInstance);
         }
         else
         {

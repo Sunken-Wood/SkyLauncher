@@ -5,16 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SkyLauncher.Views"
              xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600">
     <Grid Margin="15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" >
+            <StackPanel Orientation="Horizontal" >
+                <Button Width="80" Margin="0,0,10,0"
+            Command="{Binding SaveCommand}">
+                    <DockPanel>
+                        <iconPacks:PackIconOcticons Kind="Check16" />
+                        <TextBlock Text="确认" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+                <Button  Width="110" Margin="0,0,10,0" Click="OpenResourcepackFolder"
+            >
+                    <DockPanel>
+                        <iconPacks:PackIconPhosphorIcons Kind="FolderOpen" />
+                        <TextBlock Text="打开文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
+            </StackPanel>
+        </Border>
         <!--hc:Divider Grid.Row="0" Content="资源包管理" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/-->
-        <Border Grid.Row="0">
+        <Border Grid.Row="1" Margin="10,0,10,0">
             <DataGrid
     ItemsSource="{Binding DataList}"
     AutoGenerateColumns="False">
@@ -37,8 +55,6 @@
             </DataGrid>
         </Border>
 
-
-        <Button Grid.Row="1" Content="保存" Command="{Binding SaveCommand}"
-                Width="100" HorizontalAlignment="Right" Margin="0,15,0,0"/>
+       
     </Grid>
 </UserControl>

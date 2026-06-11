@@ -50,7 +50,7 @@ namespace SkyLauncher.ViewModels
                     IsEnabled = true
                 });
 
-            var disabledFiles = Directory.GetFiles(modsFolder, "*.disabled")
+            var disabledFiles = Directory.GetFiles(modsFolder, "*.jar.disabled")
                 .Select(fullPath => new ModFileInfo
                 {
                     FullPath = fullPath,
@@ -76,7 +76,7 @@ namespace SkyLauncher.ViewModels
                 if (isEnabled)
                 {
                     // 从 .disabled 改为 .jar
-                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".jar");
+                    string newPath = Path.Combine(directory, fileNameWithoutExtension);
                     if (File.Exists(currentPath))
                     {
                         File.Move(currentPath, newPath);
@@ -87,7 +87,7 @@ namespace SkyLauncher.ViewModels
                 else
                 {
                     // 从 .jar 改为 .disabled
-                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".disabled");
+                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".jar.disabled");
                     if (File.Exists(currentPath))
                     {
                         File.Move(currentPath, newPath);

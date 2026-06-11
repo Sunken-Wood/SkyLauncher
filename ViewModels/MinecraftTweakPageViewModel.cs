@@ -1,5 +1,4 @@
-﻿// SkyLauncher/ViewModels/ResourcePackManagerViewModel.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -117,6 +116,15 @@ public class ResourcePackManagerViewModel : INotifyPropertyChanged
         return result;
     }
 
+    public void OpenResourcePackFolder()
+    {
+        if (Directory.Exists(_resourcePacksDir))
+            System.Diagnostics.Process.Start("explorer.exe", _resourcePacksDir);
+        else
+            HandyControl.Controls.MessageBox.Show("资源包文件夹不存在！", "错误",
+                System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+    }
+
     private void ExecuteSave()
     {
 
@@ -147,7 +155,7 @@ public class ResourcePackManagerViewModel : INotifyPropertyChanged
 
         File.WriteAllLines(_optionsFilePath, lines);
 
-        System.Windows.MessageBox.Show("资源包设置已保存！", "成功",
+        HandyControl.Controls.MessageBox.Show("资源包设置已保存！", "成功",
             System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
     }
 
