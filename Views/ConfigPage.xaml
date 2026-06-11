@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SkyLauncher.Views"
       xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       >
@@ -56,7 +57,7 @@
                                 </DockPanel>
                                 <DockPanel
                                     HorizontalAlignment="Left"
-                                    Margin="10">
+                                    Margin="10,10,10,20">
                                     <RadioButton
                                         GroupName="mem_allocation_mode"
                                         Content="自动分配"
@@ -91,22 +92,95 @@
                                 </ToolBar>
                             </StackPanel>
                         </Border>
-                        <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Grid.Row="2" Margin="0,15,0,0">
-                            <Grid>
-                                <TextBlock Text="打开截图画廊" Margin="20,10,10,10" />
-                                <Button Content="打开" Margin="0,0,20,0" Width="60"  FontSize="15" Click="OpenScreenshotGallery" HorizontalAlignment="Right" Height="30"/>
+                        <Border Background="{DynamicResource RegionBrush}" Grid.Row="2" Margin="0,15,0,0">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,10,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0" CornerRadius="5" Width="110" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0" MouseLeftButtonDown="GoToMinecraftSettingPage">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <iconPacks:PackIconMaterial Kind="PuzzleOutline" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="100">
+                                            <TextBlock Text="模组" HorizontalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5"/>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Column="1" CornerRadius="5" Width="110" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0" 
+                                        MouseLeftButtonDown="OpenScreenshotGallery">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <iconPacks:PackIconPhosphorIcons Kind="CropBold" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="80">
+                                            <TextBlock Text="截图画廊" HorizontalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5,10,5,5"/>
+                                            
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Column="2" CornerRadius="5" Width="110" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0"
+                                        MouseLeftButtonDown="OpenResourcePackManager">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <iconPacks:PackIconPhosphorIcons Kind="PackageBold" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="100">
+                                            <TextBlock Text="资源包" HorizontalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5"/>
+                                            
+
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Column="3" CornerRadius="5" Width="110" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0" MouseLeftButtonDown="OpenShaderpackManage">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <iconPacks:PackIconPhosphorIcons Kind="SphereBold" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"
+                                                                         />
+                                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="100" >
+                                            <TextBlock Text="光影包" HorizontalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Border Grid.Column="4" CornerRadius="5" Width="110" Opacity="0.9" Background="{DynamicResource BackgroundBrush}" Margin="10,0,10,0"
+                                        MouseLeftButtonDown="OpenSchematicsManage">
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <iconPacks:PackIconPhosphorIcons Kind="VideoCameraBold" Width="35" Height="35" Foreground="{DynamicResource SecondaryTextBrush}" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Width="150">
+                                            <TextBlock Text="投影" HorizontalAlignment="Center" Foreground="{DynamicResource SecondaryTextBrush}" Margin="5"/>
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Border>
                             </Grid>
                         </Border>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="可加载配置项" FontSize="15" Grid.Row="1" Margin="10" Padding="10" Style="{StaticResource GroupBoxTab}">
-                    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4">
-                        <TextBlock Text="Any" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <GroupBox Header="可传递配置项" FontSize="15" Grid.Row="1" Margin="10" Padding="10" Style="{StaticResource GroupBoxTab}">
+                    <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" MinHeight="80">
+                        <TextBlock Text="未实现" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                 </GroupBox>
 
             </Grid>
         </ScrollViewer>
-        <hc:GotoTop Animated="True" AutoHiding="True" AnimationTime="500" Target="{Binding ElementName=ScrollViewerDemo}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20"/>
     </Grid>
 </UserControl>

@@ -77,7 +77,7 @@
                         <Border>
                             <StackPanel Margin="10" Width="500">
                                 <hc:Divider Padding="0" Content="透明度设定" />
-                                <Slider Width="400" Maximum="1" Minimum="0.25" Value="{Binding LauncherOpacity}" x:Name="OpacitySlider" hc:TipElement.Visibility="Visible" 
+                                <Slider Width="400" Maximum="1" Minimum="0.25"  x:Name="OpacitySlider" hc:TipElement.Visibility="Visible" 
  IsSelectionRangeEnabled="True" SelectionStart="0.5" SelectionEnd="0.9" TickFrequency="0.025" IsSnapToTickEnabled="True" TickPlacement="TopLeft"/>
                                 <Button Content="确认" Margin="0,20,0,0" x:Name="OpacityConfirmBtn" Click="ConfirmOpacity" FontSize="15" Height="35" Width="60" Style="{DynamicResource ButtonPrimary}"/>
                             </StackPanel>
