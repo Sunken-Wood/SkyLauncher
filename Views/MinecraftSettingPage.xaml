@@ -5,18 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:local="clr-namespace:SkyLauncher.Views"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border CornerRadius="4" Padding="10" Margin="10" Background="{DynamicResource RegionBrush}">
+    
         <Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <hc:Divider Content="{Binding MinecraftName}" Grid.Row="0" Margin="15,15,15,10" FontSize="15"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Background="{DynamicResource RegionBrush}" CornerRadius="4" Padding="10" Margin="10" >
+                <StackPanel Orientation="Horizontal" >
+                <Button  Width="110" Margin="0,0,10,0"  Click="OpenModFilesFolder"
+>
+                        <DockPanel>
+                            <iconPacks:PackIconPhosphorIcons Kind="FolderOpen" />
+                            <TextBlock Text="打开文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                        </DockPanel>
+                    </Button>
+                </StackPanel>
+            </Border>
+        <Border CornerRadius="4" Padding="10" Margin="10" Background="{DynamicResource RegionBrush}" Grid.Row="1" >
 
-                <DataGrid Grid.Row="1" 
+
+            
+                <DataGrid Grid.Row="0" 
                       ItemsSource="{Binding Mods}" 
                       hc:DataGridAttach.ShowRowNumber="True"
                       AutoGenerateColumns="False"
@@ -27,8 +40,9 @@
                         <DataGridCheckBoxColumn Header="状态" CanUserResize="False"  Binding="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </Grid>
-            <Grid x:Name="LoadingGrid" Visibility="Hidden">
+          
+        </Border>
+            <!--Grid x:Name="LoadingGrid" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
@@ -40,7 +54,7 @@
                         <TextBlock Text=" "/>
                     </StackPanel>
                 </Border>
-            </Grid>
+            </Grid-->
         </Grid>
-    </Border>
+
 </UserControl>

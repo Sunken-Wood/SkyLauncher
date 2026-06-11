@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using HandyControl.Controls;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SkyLauncher.ViewModels
 {
@@ -22,6 +23,8 @@ namespace SkyLauncher.ViewModels
             get { return _minecraftName; }
             set { _minecraftName = value; }
         }
+
+
 
         public MinecraftSettingViewModel(SkyLauncher.Core.Models.MinecraftInstance instance)
         {
@@ -99,6 +102,20 @@ namespace SkyLauncher.ViewModels
             catch (Exception ex)
             {
                 HandyControl.Controls.MessageBox.Show("切换模组状态失败，请检查文件权限或是否被其他程序占用。", "错误",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Error);
+            }
+
+
+            
+        }
+        public void OpenModsFolderCommand()
+        {
+            if (Directory.Exists(modsFolder))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", modsFolder);
+            }
+            else
+            {
+                HandyControl.Controls.MessageBox.Show("模组文件夹不存在！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
     }

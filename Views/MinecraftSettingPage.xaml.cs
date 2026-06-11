@@ -6,6 +6,7 @@ namespace SkyLauncher.Views
 {
     public partial class MinecraftSettingPage : UserControl
     {
+        private readonly MinecraftSettingViewModel _viewModel;
         public MinecraftSettingPage()
         {
             InitializeComponent();
@@ -14,7 +15,8 @@ namespace SkyLauncher.Views
         public MinecraftSettingPage(SkyLauncher.Core.Models.MinecraftInstance instance) : this()
         {
             // 创建 ViewModel 并设置 DataContext
-            DataContext = new MinecraftSettingViewModel(instance);
+            _viewModel= new MinecraftSettingViewModel(instance);
+            DataContext = _viewModel;
 
             // 加载完成后订阅事件
             Loaded += MinecraftSettingPage_Loaded;
@@ -61,6 +63,14 @@ namespace SkyLauncher.Views
                 && DataContext is MinecraftSettingViewModel viewModel)
             {
                 viewModel.ToggleModEnabled(modInfo, modInfo.IsEnabled);
+            }
+        }
+
+        private void OpenModFilesFolder(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (DataContext is MinecraftSettingViewModel viewModel)
+            {
+                viewModel.OpenModsFolderCommand();
             }
         }
     }
