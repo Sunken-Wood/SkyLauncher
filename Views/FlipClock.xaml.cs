@@ -27,9 +27,10 @@ namespace SkyLauncher.Views
         private void GoBack(object sender, RoutedEventArgs e)
         {
             var mainWindow = Application.Current.MainWindow as MainWindow;
+
             if (mainWindow != null)
             {
-                mainWindow.ContentArea.Content = new Views.ToolboxPage();
+                mainWindow.NavigateToPage(() => new Views.ToolboxPage());
             }
         }
 

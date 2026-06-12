@@ -103,6 +103,8 @@ namespace SkyLauncher.Views
 
             */
         }
+
+
         private void SwitchToDark(object sender, RoutedEventArgs e)
         {
             /*var dicts = Application.Current.Resources.MergedDictionaries;
@@ -129,18 +131,17 @@ namespace SkyLauncher.Views
         public static event Action<Color> ThemeColorChanged;
         public static event Action<String> BackgroundImagePathChanged;
 
-        private void FlipClock_Show(object sender, RoutedEventArgs e)
+        private void FlipClock_Show(object sender = null, RoutedEventArgs e = null)
         {
             var mainWindow = Application.Current.MainWindow as MainWindow;
+
             if (mainWindow != null)
             {
-                mainWindow.ContentArea.Content = new Views.FlipClock();
-            }
-            else
-            {
-                HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                mainWindow.NavigateToPage(() => new Views.FlipClock());
             }
         }
+
+
 
         private void ColorPicker_OnSelectedColorChanged(object sender, FunctionEventArgs<Color> e)
         {

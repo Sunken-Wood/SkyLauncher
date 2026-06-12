@@ -79,14 +79,7 @@
                                             Style="{StaticResource ButtonDashedDanger}"
                                             x:Name="DeleteInstanceButton"
                                             Grid.Column="0"/>
-                                    <Button Content="管理"
-                                            ToolTip="打开此实例的设置页面"
-                                            Click="GoToMinecraftSettingPage"
-                                            Tag="{Binding}"
-                                           
-                                            Style="{StaticResource ButtonDashedInfo}"
-                                            x:Name="GotoMinecraftSettingPageButton"
-                                            Grid.Column="1"/>
+                                    
                                 </Grid>
 
                             </DataTemplate>

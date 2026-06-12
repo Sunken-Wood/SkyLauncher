@@ -1,4 +1,6 @@
-﻿using Nrk.FluentCore.Exceptions;
+﻿using HandyControl.Controls;
+using HandyControl.Data;
+using Nrk.FluentCore.Exceptions;
 using Nrk.FluentCore.Experimental.GameManagement.Installer.Modpack;
 using Nrk.FluentCore.Experimental.GameManagement.Modpacks;
 using Nrk.FluentCore.GameManagement;
@@ -11,11 +13,11 @@ using Nrk.FluentCore.Utils;
 using System;
 using System.IO;
 using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using static Nrk.FluentCore.Resources.CurseForge.CurseForgeModpackManifest;
-
 
 namespace SkyLauncher.Core.Services;
 
@@ -165,6 +167,7 @@ public class ModpackInstallService
         }
         ReportStatus("安装完成！");
         ReportProgress(100);
+
 
         return instance;
     }
