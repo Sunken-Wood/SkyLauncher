@@ -10,6 +10,11 @@
       d:DesignHeight="450" d:DesignWidth="800"
       >
     <Border CornerRadius="4" Padding="10" Margin="10" Background="{DynamicResource RegionBrush}">
+        <!--Border.Background>
+            <ImageBrush
+ImageSource="/Background.png"
+Stretch="Fill" Opacity="0.8"/>
+        </Border.Background-->
         <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="59*"/>

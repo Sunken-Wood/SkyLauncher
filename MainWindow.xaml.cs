@@ -25,7 +25,8 @@ namespace SkyLauncher
         private Page _currentPage;
         private LauncherSettings _settings;
         public event EventHandler<double> OpacityChanged;
-        private Views.ToolboxPage? _toolboxInstance;
+        public Views.ToolboxPage _toolboxInstance;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -152,11 +153,7 @@ namespace SkyLauncher
                                     ?? (Grid)mainGrid.ColumnDefinitions[1]?.FindName("ContentArea");
 
         // 导航方法
-        public void NavigateToPage(Page page, Button activeButton = null)
-        {
-            ContentArea.Content = page;
-            _currentPage = page;
-        }
+        
 
 
         private void UpdateButtonStyle(Button activeButton)
@@ -181,38 +178,39 @@ namespace SkyLauncher
         // 各个导航方法
         private void GoToMainPage(object sender = null, RoutedEventArgs e = null)
         {
-            ContentArea.Content = new Views.MainPage();
+            NavigateToPage(() => new Views.MainPage());
         }
 
-        private void GoToConfigPage(object sender, RoutedEventArgs e)
+        private void GoToConfigPage(object sender = null, RoutedEventArgs e = null)
         {
-            ContentArea.Content = new Views.ConfigPage();
+            NavigateToPage(() => new Views.ConfigPage());
         }
 
-        private void GoToAboutPage(object sender, RoutedEventArgs e)
+        private void GoToAboutPage(object sender = null, RoutedEventArgs e = null)
         {
-            ContentArea.Content = new Views.AboutPage();
+            NavigateToPage(() => new Views.AboutPage());
         }
 
-        private void GoToToolboxPage(object sender, RoutedEventArgs e)
+        private void GoToVersionManagementPage(object sender = null, RoutedEventArgs e = null)
         {
-            if (_toolboxInstance == null)
-            {
-                _toolboxInstance = new ToolboxPage();
-                _toolboxInstance.OpacityChanged += OnOpacityChanged;
-            }
-
-            ContentArea.Content = _toolboxInstance;
+            NavigateToPage(() => new Views.VersionManagementPage(this));
         }
 
-        private void GoToVersionManagementPage(object sender, RoutedEventArgs e)
+        private void GoToDownloadPage(object sender = null, RoutedEventArgs e = null)
         {
-            ContentArea.Content = new Views.VersionManagementPage(this);
+            NavigateToPage(() => new Views.DownloadPage());
         }
 
-        private void GoToDownloadPage(object sender, RoutedEventArgs e)
+
+        public void GoToToolboxPage(object sender = null, RoutedEventArgs e = null)
         {
-            ContentArea.Content = new Views.DownloadPage();
+            NavigateToPage(() => {
+                var toolbox = new Views.ToolboxPage();
+                toolbox.OpacityChanged += OnOpacityChanged; 
+                return toolbox;
+            });
         }
+
+
     }
 }

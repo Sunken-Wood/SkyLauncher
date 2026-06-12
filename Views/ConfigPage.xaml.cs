@@ -36,64 +36,49 @@ public partial class ConfigPage : UserControl
     private void OpenScreenshotGallery(object sender, RoutedEventArgs e)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
+
         if (mainWindow != null)
         {
-            mainWindow.ContentArea.Content = new Views.ScreenshotGallery();
-        }
-        else
-        {
-            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            mainWindow.NavigateToPage(() => new Views.ScreenshotGallery());
         }
     }
     private void OpenResourcePackManager(object sender, RoutedEventArgs e)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
+
         if (mainWindow != null)
         {
-            mainWindow.ContentArea.Content = new Views.ResourcePackManager();
-        }
-        else
-        {
-            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            mainWindow.NavigateToPage(() => new Views.ResourcePackManager());
         }
     }
-    private void GoToMinecraftSettingPage(object sender, RoutedEventArgs e)
+    public void GoToMinecraftSettingPage(object sender =null, RoutedEventArgs e=null)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
-        if (mainWindow != null)
-        {
-            var selectedInstance = MainViewModel.Instance.SelectedInstance;
+        var selectedInstance = MainViewModel.Instance.SelectedInstance;
 
-            mainWindow.ContentArea.Content = new Views.MinecraftSettingPage(selectedInstance);
-        }
-        else
-        {
-            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
+        if (mainWindow != null||selectedInstance !=null)
+            {
+                mainWindow.NavigateToPage(() => new Views.MinecraftSettingPage(selectedInstance));
+            }
+        else { HandyControl.Controls.MessageBox.Show("未选择实例", "错误", MessageBoxButton.OK, MessageBoxImage.Error); }
     }
     private void OpenShaderpackManage(object sender, RoutedEventArgs e)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
+
         if (mainWindow != null)
         {
-            mainWindow.ContentArea.Content = new Views.ShaderPackManage();
-        }
-        else
-        {
-            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            mainWindow.NavigateToPage(() => new Views.ShaderPackManage());
         }
     }
 
     private void OpenSchematicsManage(object sender, RoutedEventArgs e)
     {
         var mainWindow = Application.Current.MainWindow as MainWindow;
+
         if (mainWindow != null)
         {
-            mainWindow.ContentArea.Content = new Views.SchematicsManage();
-        }
-        else
-        {
-            HandyControl.Controls.MessageBox.Show("遇到严重错误，当前页面为 null", "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+            mainWindow.NavigateToPage(() => new Views.SchematicsManage());
         }
     }
 

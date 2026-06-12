@@ -1,6 +1,7 @@
 ﻿using SkyLauncher.ViewModels;
 using System;
 using System.Windows.Controls;
+using Nrk.FluentCore.GameManagement.Mods;
 
 namespace SkyLauncher.Views
 {

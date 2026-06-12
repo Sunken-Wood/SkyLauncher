@@ -2,13 +2,16 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:fx="https://unknown6656.com/wpfpslib"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkyLaucher"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:fluent="https://github.com/TwilightLemon/FluentWpfCore"
         mc:Ignorable="d"
-        Title="SkyLauncher" Height="540" Width="920">
+        Title="SkyLauncher" Height="540" Width="920" >
+        
     <Grid>
         <Image x:Name="ImageShow" Stretch="UniformToFill" Opacity="0.7"/>
         <Grid x:Name="mainGrid">
@@ -18,13 +21,19 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <StackPanel Grid.Column="0" Background="{DynamicResource SecondaryRegionBrush}" x:Name="NavigatePannel">
+            <StackPanel Grid.Column="0" x:Name="NavigatePannel" Background="{DynamicResource BackgroundBrush}">
+                <!--StackPanel.Background>
+                    <ImageBrush
+ImageSource="/Background.png"
+Stretch="Fill" Opacity="0.8"/>
+                </StackPanel.Background-->
                 <TextBlock Text="NAVIGATION"  Margin="15,20,10,10"  Foreground="{DynamicResource SecondaryTextBrush}" FontSize="12" FontWeight="Bold"/>
                 <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToMainPage">
                     <DockPanel>
                         <iconPacks:PackIconLucide Kind="House" Foreground="{DynamicResource PrimaryNormalBrush}" Width="18" Height="18"/>
                         <TextBlock Text="主菜单" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
+                    
                 </RadioButton>
                 <RadioButton Margin="10" Height="40" HorizontalAlignment="Left" Width="150" Style="{StaticResource RadioButtonIcon}" Click="GoToConfigPage">
                     <DockPanel>
