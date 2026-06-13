@@ -37,7 +37,15 @@ namespace SkyLauncher.Views
             }
         }
 
+        private void GoBack(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Application.Current.MainWindow as MainWindow;
 
+            if (mainWindow != null)
+            {
+                mainWindow.NavigateToPage(() => new Views.ConfigPage());
+            }
+        }
 
         private void OpenResourcepackFolder(object sender, RoutedEventArgs e)
         {
