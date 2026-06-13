@@ -21,7 +21,7 @@
                         <TextBlock Text="打开文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
                     </DockPanel>
                 </Button>
-                <Button Margin="10,0,10,0" Click="GoBack">
+                <Button Margin="0,0,10,0" Click="GoBack">
                     <DockPanel>
                         <iconPacks:PackIconIonicons Kind="ArrowRoundBackiOS" />
                         <TextBlock Text="返回" Margin="12,0,0,0" VerticalAlignment="Center"/>

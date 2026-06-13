@@ -23,7 +23,7 @@
                             <TextBlock Text="打开文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Button>
-                <Button Margin="10,0,10,0" Click="GoBack">
+                <Button Margin="0,0,10,0" Click="GoBack">
                     <DockPanel>
                         <iconPacks:PackIconIonicons Kind="ArrowRoundBackiOS" />
                         <TextBlock Text="返回" Margin="12,0,0,0" VerticalAlignment="Center"/>
@@ -41,15 +41,44 @@
       AutoGenerateColumns="False"
       x:Name="ModsDataGrid" Opacity="0.9">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="400" Header="名称" Binding="{Binding DisplayName}" IsReadOnly="True" />
-                    <DataGridTextColumn Width="130" Header="版本" Binding="{Binding Version}" IsReadOnly="True" />
-                    <DataGridTemplateColumn Header="状态" Width="80">
+                    <DataGridTextColumn Width="380" Header="名称" Binding="{Binding DisplayName}" IsReadOnly="True" />
+                    <DataGridTextColumn Width="110" Header="版本" Binding="{Binding Version}" IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="状态" Width="60">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <CheckBox IsChecked="{Binding IsEnabled}"
                               Command="{Binding DataContext.ToggleModEnabledCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                               CommandParameter="{Binding}"/>
                             </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Width="100" Header="操作">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Width="100">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button 
+                                            ToolTip="删除此模组"
+                                            Command="{Binding DataContext.DeleteModCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}"
+                                            Style="{StaticResource ButtonDashedDanger}"
+                                            x:Name="DeleteInstanceButton"
+                                            Grid.Column="0">
+                                        <Button.Content>
+                                            <DockPanel>
+                                                <iconPacks:PackIconLucide Kind="Trash2" />
+                                                
+                                            </DockPanel>
+                                        </Button.Content>
+                                    </Button>
+                                    
+                                </Grid>
+
+                            </DataTemplate>
+          
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>

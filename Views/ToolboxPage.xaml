@@ -37,7 +37,13 @@ Stretch="Fill" Opacity="0.8"/>
                 <TabItem Visibility="Hidden" Width="0">
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" />
                 </TabItem>
-                <TabItem Header="主题色" FontSize="15" >
+                <TabItem  FontSize="15" Width="120">
+                    <TabItem.Header>
+                        <DockPanel>
+                            <iconPacks:PackIconLucide Kind="PaintbrushVertical" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <TextBlock Text="选择主题色"/>
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" x:Name="ThemeTransition">
                         <hc:ScrollViewer>
 
@@ -52,7 +58,13 @@ Stretch="Fill" Opacity="0.8"/>
                     </hc:TransitioningContentControl>
 
                 </TabItem>
-                <TabItem Header="背景图片" FontSize="15">
+                <TabItem FontSize="15" Width="120">
+                    <TabItem.Header>
+                        <DockPanel>
+                            <iconPacks:PackIconLucide Kind="Image" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <TextBlock Text="选择背景图"/>
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
                         <Border >
                             <StackPanel Margin="10" Width="500">
@@ -63,7 +75,13 @@ Stretch="Fill" Opacity="0.8"/>
                         </Border>
                     </hc:TransitioningContentControl>
                 </TabItem>
-                <TabItem Header="切换明暗模式" FontSize="15">
+                <TabItem  FontSize="15" Width="120">
+                    <TabItem.Header>
+                        <DockPanel>
+                            <iconPacks:PackIconLucide Kind="HatGlasses" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <TextBlock Text="明暗模式"/>
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
                         <Border Margin="15,10,10,10">
                             <StackPanel Width="500">
@@ -77,7 +95,14 @@ Stretch="Fill" Opacity="0.8"/>
                         </Border>
                     </hc:TransitioningContentControl>
                 </TabItem>
-                <TabItem Header="透明度设定" FontSize="15">
+                <TabItem FontSize="15" Width="120">
+                    <TabItem.Header>
+                        <DockPanel>
+                            <iconPacks:PackIconLucide Kind="Blend" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <TextBlock Text="透明度设定"/>
+                            
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade">
                         <Border>
                             <StackPanel Margin="10" Width="500">

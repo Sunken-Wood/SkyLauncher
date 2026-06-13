@@ -16,7 +16,13 @@
                 <TabItem Visibility="Hidden" Width="0">
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" />
                 </TabItem>
-                <TabItem Header="安装整合包" FontSize="15">
+                <TabItem FontSize="15">
+                    <TabItem.Header>
+                        <DockPanel>
+                        <iconPacks:PackIconLucide Kind="FileArchive" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                        <TextBlock Text="安装整合包"/>
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
                         <Grid>
                             <Grid.RowDefinitions>
@@ -102,9 +108,30 @@
                         </Grid>
                     </hc:TransitioningContentControl>
                 </TabItem>
-                <TabItem Header="安装Java JDK" FontSize="15">
+                <TabItem FontSize="15">
+                    <TabItem.Header>
+                        <DockPanel>
+                            <iconPacks:PackIconRemixIcon Kind="JavaLine" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <TextBlock Text="安装JDK"/>
+                        </DockPanel>
+                    </TabItem.Header>
                     <hc:TransitioningContentControl TransitionMode="Right2LeftWithFade" >
-
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0">
+                                <hc:Divider Content="原版Java JDK"/>
+                                <hc:ProgressButton IsChecked="{Binding DownloadingJava8,Mode=TwoWay}" Progress="{Binding Progress}" Content="Java 8"  Margin="10,0,0,0" Width="80" HorizontalAlignment="Left" />
+                                <hc:ProgressButton IsChecked="{Binding DownloadingJava16,Mode=TwoWay}" Progress="{Binding Progress}" Content="Java 16"  Margin="5" Width="80"/>
+                                <hc:ProgressButton IsChecked="{Binding DownloadingJava17,Mode=TwoWay}" Progress="{Binding Progress}" Content="Java 17"  Margin="5" Width="80"/>
+                                <hc:ProgressButton IsChecked="{Binding DownloadingJava21,Mode=TwoWay}" Progress="{Binding Progress}" Content="Java 21"  Margin="5" Width="80"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1">
+                                <hc:Divider Content="原版Zulu JDK"/>
+                            </StackPanel>
+                        </Grid>
                     </hc:TransitioningContentControl>
                 </TabItem>
             </TabControl>
