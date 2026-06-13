@@ -1,32 +1,30 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SkyLauncher.FluentCore;
+using Nrk.FluentCore.GameManagement.Mods;
+using SkyLauncher.Core.Models;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using HandyControl.Controls;
-using System.Security.Cryptography.X509Certificates;
+using System;
 
 namespace SkyLauncher.ViewModels
 {
     public partial class MinecraftSettingViewModel : ObservableObject
     {
         [ObservableProperty]
-        private ObservableCollection<ModFileInfo> _mods = new ObservableCollection<ModFileInfo>();
+        private ObservableCollection<MinecraftMod> _mods = new ObservableCollection<MinecraftMod>();
 
-        private SkyLauncher.Core.Models.MinecraftInstance _instance;
+        private MinecraftInstance _instance;
         private readonly string modsFolder;
 
         private string _minecraftName = "未知";
         public string MinecraftName
         {
-            get { return _minecraftName; }
-            set { _minecraftName = value; }
+            get => _minecraftName;
+            set => SetProperty(ref _minecraftName, value);
         }
 
-
-
-        public MinecraftSettingViewModel(SkyLauncher.Core.Models.MinecraftInstance instance)
+        public MinecraftSettingViewModel(MinecraftInstance instance)
         {
             _instance = instance;
             modsFolder = _instance.ModsPath;
@@ -35,7 +33,7 @@ namespace SkyLauncher.ViewModels
         }
 
         [RelayCommand]
-        private void LoadMods()
+        private async void LoadMods()
         {
             Mods.Clear();
 
@@ -44,70 +42,73 @@ namespace SkyLauncher.ViewModels
                 return;
             }
 
-            var jarFiles = Directory.GetFiles(modsFolder, "*.jar")
-                .Select(fullPath => new ModFileInfo
-                {
-                    FullPath = fullPath,
-                    FileName = Path.GetFileName(fullPath),
-                    FileSize = new FileInfo(fullPath).Length,
-                    IsEnabled = true
-                });
-
-            var disabledFiles = Directory.GetFiles(modsFolder, "*.jar.disabled")
-                .Select(fullPath => new ModFileInfo
-                {
-                    FullPath = fullPath,
-                    FileName = Path.GetFileName(fullPath),
-                    FileSize = new FileInfo(fullPath).Length,
-                    IsEnabled = false
-                });
-
-            foreach (var file in jarFiles.Concat(disabledFiles))
+            // 使用 FluentCore 的 ModManager 枚举模组
+            await foreach (var mod in ModManager.EnumerateModsAsync(modsFolder))
             {
-                Mods.Add(file);
+                // 如果 DisplayName 为空，使用文件名
+                if (string.IsNullOrEmpty(mod.DisplayName))
+                {
+                    mod.DisplayName = Path.GetFileNameWithoutExtension(mod.AbsolutePath);
+                }
+                Mods.Add(mod);
             }
         }
 
-        public void ToggleModEnabled(ModFileInfo mod, bool isEnabled)
+        [RelayCommand]
+        public void ToggleModEnabled(MinecraftMod mod)
         {
             try
             {
-                string currentPath = mod.FullPath;
-                string directory = Path.GetDirectoryName(currentPath);
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(currentPath);
+                // 使用 FluentCore 的扩展方法切换模组状态
+                mod.Switch(!mod.IsEnabled);
 
-                if (isEnabled)
+                // 刷新集合中的项（触发 UI 更新）
+                var index = Mods.IndexOf(mod);
+                if (index >= 0)
                 {
-                    // 从 .disabled 改为 .jar
-                    string newPath = Path.Combine(directory, fileNameWithoutExtension);
-                    if (File.Exists(currentPath))
-                    {
-                        File.Move(currentPath, newPath);
-                        mod.FullPath = newPath;
-                        mod.FileName = Path.GetFileName(newPath);
-                    }
-                }
-                else
-                {
-                    // 从 .jar 改为 .disabled
-                    string newPath = Path.Combine(directory, fileNameWithoutExtension + ".jar.disabled");
-                    if (File.Exists(currentPath))
-                    {
-                        File.Move(currentPath, newPath);
-                        mod.FullPath = newPath;
-                        mod.FileName = Path.GetFileName(newPath);
-                    }
+                    Mods[index] = mod;
                 }
             }
             catch (Exception ex)
             {
-                HandyControl.Controls.MessageBox.Show("切换模组状态失败，请检查文件权限或是否被其他程序占用。", "错误",System.Windows.MessageBoxButton.OK,System.Windows.MessageBoxImage.Error);
+                HandyControl.Controls.MessageBox.Show(
+                    $"切换模组状态失败：{ex.Message}\n请检查文件权限或是否被其他程序占用。",
+                    "错误",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error);
             }
-
-
-            
         }
-        public void OpenModsFolderCommand()
+
+        [RelayCommand]
+        public void DeleteMod(MinecraftMod mod)
+        {
+            var result = HandyControl.Controls.MessageBox.Show(
+                $"确定要删除模组 \"{mod.DisplayName}\" 吗？此操作不可恢复。",
+                "确认删除",
+                System.Windows.MessageBoxButton.YesNo,
+                System.Windows.MessageBoxImage.Question);
+
+            if (result == System.Windows.MessageBoxResult.Yes)
+            {
+                try
+                {
+                    // 使用 FluentCore 的扩展方法删除模组
+                    mod.Delete();
+                    Mods.Remove(mod);
+                }
+                catch (Exception ex)
+                {
+                    HandyControl.Controls.MessageBox.Show(
+                        $"删除模组失败：{ex.Message}",
+                        "错误",
+                        System.Windows.MessageBoxButton.OK,
+                        System.Windows.MessageBoxImage.Error);
+                }
+            }
+        }
+
+        [RelayCommand]
+        public void OpenModsFolder()
         {
             if (Directory.Exists(modsFolder))
             {
@@ -115,7 +116,11 @@ namespace SkyLauncher.ViewModels
             }
             else
             {
-                HandyControl.Controls.MessageBox.Show("模组文件夹不存在！", "错误", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                HandyControl.Controls.MessageBox.Show(
+                    "模组文件夹不存在！",
+                    "错误",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Error);
             }
         }
     }

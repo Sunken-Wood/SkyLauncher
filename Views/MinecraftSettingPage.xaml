@@ -23,24 +23,38 @@
                             <TextBlock Text="打开文件夹" Margin="12,0,0,0" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Button>
+                <Button Margin="10,0,10,0" Click="GoBack">
+                    <DockPanel>
+                        <iconPacks:PackIconIonicons Kind="ArrowRoundBackiOS" />
+                        <TextBlock Text="返回" Margin="12,0,0,0" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Button>
                 </StackPanel>
             </Border>
         <Border CornerRadius="4" Padding="10" Margin="10" Background="{DynamicResource RegionBrush}" Grid.Row="1" >
 
 
-            
-                <DataGrid Grid.Row="0" 
-                      ItemsSource="{Binding Mods}" 
-                      hc:DataGridAttach.ShowRowNumber="True"
-                      AutoGenerateColumns="False"
-                      x:Name="ModsDataGrid" Opacity="0.9">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn  Width="400" Header="名称" Binding="{Binding FileName}" IsReadOnly="True" />
-                        <DataGridTextColumn Width="130" Header="大小" Binding="{Binding FormattedSize}" IsReadOnly="True" />
-                        <DataGridCheckBoxColumn Header="状态" CanUserResize="False"  Binding="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-          
+
+            <DataGrid Grid.Row="0" 
+      ItemsSource="{Binding Mods}" 
+      hc:DataGridAttach.ShowRowNumber="True"
+      AutoGenerateColumns="False"
+      x:Name="ModsDataGrid" Opacity="0.9">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="400" Header="名称" Binding="{Binding DisplayName}" IsReadOnly="True" />
+                    <DataGridTextColumn Width="130" Header="版本" Binding="{Binding Version}" IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="状态" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsEnabled}"
+                              Command="{Binding DataContext.ToggleModEnabledCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                              CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
         </Border>
             <!--Grid x:Name="LoadingGrid" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
