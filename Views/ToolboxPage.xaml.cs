@@ -131,7 +131,7 @@ namespace SkyLauncher.Views
         public static event Action<Color> ThemeColorChanged;
         public static event Action<String> BackgroundImagePathChanged;
 
-        private void FlipClock_Show(object sender = null, RoutedEventArgs e = null)
+        /*private void FlipClock_Show(object sender = null, RoutedEventArgs e = null)
         {
             var mainWindow = Application.Current.MainWindow as MainWindow;
 
@@ -139,7 +139,7 @@ namespace SkyLauncher.Views
             {
                 mainWindow.NavigateToPage(() => new Views.FlipClock());
             }
-        }
+        }*/
 
 
 

@@ -8,11 +8,20 @@
     <UseWPF>true</UseWPF>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>ChatGPT Image 2026年7月5日 10_21_17~1.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\FlipClock.xaml.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Background.png" />
     <None Remove="Background_Blur.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\FlipClock.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="ChatGPT Image 2026年7月5日 10_21_17~1.ico" />
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
